@@ -74,16 +74,18 @@ public class Menu extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GLC().setVisible(true);
+                new GLCEditor().setVisible(true);
+              
             }
         });
-        System.out.println("Se está pulsando GLC");
+       // System.out.println("Se está pulsando GLC");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GR().setVisible(true);
+                new GREditor().setVisible(true);
+                //boton2
             }
         });
         System.out.println("Se está pulsando GR");

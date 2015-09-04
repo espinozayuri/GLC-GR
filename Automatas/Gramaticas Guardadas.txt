@@ -1,0 +1,6 @@
+T---->Abcd
+T---->Abcd
+T---->Abcd
+T---->Abcd
+B---->Abcd
+BR---->Abcd

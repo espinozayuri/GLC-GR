@@ -165,6 +165,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="GRABAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGrabarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnRecuperar">
       <Properties>
@@ -175,6 +178,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="VERIFICAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerificarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnAniadir">
       <Properties>
