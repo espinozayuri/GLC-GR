@@ -195,7 +195,7 @@ public class EditorFrame extends javax.swing.JFrame {
     
     //Boton añadir
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-        // TODO add your handling code here:
+       
         //guardar en hashpmap
         //añadir condiciones para introducir al hashmap si hubiera un no terminal repetido
         
@@ -204,9 +204,8 @@ public class EditorFrame extends javax.swing.JFrame {
         ArrayList<String> cadena= convertirEnCad(txtTerminal.getText().toString());
         listaT.put(terminal, cadena);
         
-        bfIn = bfIn.append( terminal + "---->" + txtCadena.getText()+"\n");
-        
-        
+        //actualiza la parte grafica
+        bfIn = bfIn.append( terminal + "---->" + txtCadena.getText()+"\n");       
         txtMain.setText( bfIn.toString());
         
     }//GEN-LAST:event_btnAniadirActionPerformed
@@ -300,6 +299,9 @@ public class EditorFrame extends javax.swing.JFrame {
 
     private void obtenerNoTerminales() {
     
+        //obtener Keys del hashmap
+       noTerminales = (ArrayList<String>) listaT.keySet();
+        
     
     }
 }
