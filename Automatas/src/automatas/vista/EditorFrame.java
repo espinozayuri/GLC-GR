@@ -13,12 +13,14 @@ public class EditorFrame extends javax.swing.JFrame {
     HashMap<String, ArrayList<String>> listaT;
     StringBuffer bfIn;
     ArrayList<String> noTerminales;
+    ArrayList<String> terminales;
 
     public EditorFrame() {
         initComponents();
         listaT = new HashMap<>();
         bfIn = new StringBuffer();
         noTerminales = new ArrayList<>();
+        terminales = new ArrayList<>();
 
     }
 
@@ -53,6 +55,11 @@ public class EditorFrame extends javax.swing.JFrame {
         btnGen.setText("GEN");
 
         btnTerminal.setText("TERMINAL");
+        btnTerminal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTerminalActionPerformed(evt);
+            }
+        });
 
         btnNoTerminal.setText("NO TERMINAL");
         btnNoTerminal.addActionListener(new java.awt.event.ActionListener() {
@@ -224,6 +231,14 @@ public class EditorFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnNoTerminalActionPerformed
 
+    private void btnTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminalActionPerformed
+        // TODO add your handling code here:
+        obtenerTerminales();        
+        ventanaTerminales ven1 = new ventanaTerminales(terminales);
+        ven1.setVisible(true);
+        
+    }//GEN-LAST:event_btnTerminalActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -269,8 +284,12 @@ public class EditorFrame extends javax.swing.JFrame {
     private void obtenerNoTerminales() {
 
         //obtener Keys del hashmap
-        //noTerminales = (ArrayList<String>) listaT.keySet();
         noTerminales = new ArrayList<>(listaT.keySet());
 
     }
+
+    private void obtenerTerminales() {
+        
+        
+   }
 }
