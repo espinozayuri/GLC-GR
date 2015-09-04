@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * @author Saul
  */
 public class ventanaNoTerminales extends javax.swing.JFrame {
-
-    /**
-     * Creates new form ventanaNoTerminales
-     */
-    public ventanaNoTerminales(ArrayList<String> lista) {
+ 
+    ArrayList<String> lista;
+    
+    public ventanaNoTerminales(ArrayList<String> list) {
+        lista=list;
         initComponents();
         mostrarNT();
     }
@@ -65,17 +65,18 @@ public class ventanaNoTerminales extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String args[]) {
-       
+    public static void main(String args[]) {
+       ArrayList<String> aux= new ArrayList<>();
+       aux.add("S");
+       aux.add("D");
+        
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ventanaNoTerminales().setVisible(true);
+                new ventanaNoTerminales(aux).setVisible(true);
             }
         });
-    }*/
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -84,6 +85,14 @@ public class ventanaNoTerminales extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void mostrarNT() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        StringBuffer bf = new StringBuffer("{");
+        
+        for(int i =0; i< lista.size();i++){
+        bf.append(lista.get(i)+ ",");
+        }
+        
+        bf.append("}");
+        jTextPaneNoterminales.setText(bf.toString());
     }
-}
+    }
+
