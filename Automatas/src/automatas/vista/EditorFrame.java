@@ -3,29 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package automatas.vista;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-
 
 public class EditorFrame extends javax.swing.JFrame {
 
     HashMap<String, ArrayList<String>> listaT;
     StringBuffer bfIn;
     ArrayList<String> noTerminales;
-    
+
     public EditorFrame() {
         initComponents();
-        listaT= new HashMap<>();
+        listaT = new HashMap<>();
         bfIn = new StringBuffer();
         noTerminales = new ArrayList<>();
-        
+
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -191,23 +187,19 @@ public class EditorFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
     //Boton añadir
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-       
+
         //guardar en hashpmap
         //añadir condiciones para introducir al hashmap si hubiera un no terminal repetido
-        
-        
         String terminal = txtTerminal.getText().toString();
-        ArrayList<String> cadena= convertirEnCad(txtTerminal.getText().toString());
+        ArrayList<String> cadena = convertirEnCad(txtTerminal.getText().toString());
         listaT.put(terminal, cadena);
-        
+
         //actualiza la parte grafica
-        bfIn = bfIn.append( terminal + "---->" + txtCadena.getText()+"\n");       
-        txtMain.setText( bfIn.toString());
-        
+        bfIn = bfIn.append(terminal + "---->" + txtCadena.getText() + "\n");
+        txtMain.setText(bfIn.toString());
+
     }//GEN-LAST:event_btnAniadirActionPerformed
 
     private void txtTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTerminalActionPerformed
@@ -216,47 +208,24 @@ public class EditorFrame extends javax.swing.JFrame {
 
     private void bttNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttNuevoActionPerformed
         // Borra todos los datos actuales
-        
-        bfIn= new StringBuffer();
+
+        bfIn = new StringBuffer();
         txtMain.setText(bfIn.toString());
         txtCadena.setText("");
         txtTerminal.setText("");
-        
+
     }//GEN-LAST:event_bttNuevoActionPerformed
 
     private void btnNoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTerminalActionPerformed
-        obtenerNoTerminales();        
+        obtenerNoTerminales();
+
         ventanaNoTerminales ven = new ventanaNoTerminales(noTerminales);
         ven.setVisible(true);
-        
+
     }//GEN-LAST:event_btnNoTerminalActionPerformed
 
-  
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EditorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new EditorFrame().setVisible(true);
@@ -285,23 +254,23 @@ public class EditorFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private ArrayList<String> convertirEnCad(String cadIn) {
-    
-        ArrayList<String> listcad= new ArrayList<>();
-        String cadAux =cadIn;
-        
-        for(int i =0; i<cadIn.length();i++){
-           listcad.add(cadAux.substring(cadAux.length()-1));
-           cadAux= cadAux.substring(cadAux.length()-1);
+
+        ArrayList<String> listcad = new ArrayList<>();
+        String cadAux = cadIn;
+
+        for (int i = 0; i < cadIn.length(); i++) {
+            listcad.add(cadAux.substring(cadAux.length() - 1));
+            cadAux = cadAux.substring(cadAux.length() - 1);
         }
-    
-    return listcad;
+
+        return listcad;
     }
 
     private void obtenerNoTerminales() {
-    
+
         //obtener Keys del hashmap
-       noTerminales = (ArrayList<String>) listaT.keySet();
-        
-    
+        //noTerminales = (ArrayList<String>) listaT.keySet();
+        noTerminales = new ArrayList<>(listaT.keySet());
+
     }
 }
