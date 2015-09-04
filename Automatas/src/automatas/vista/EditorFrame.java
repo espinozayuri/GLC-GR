@@ -15,13 +15,13 @@ public class EditorFrame extends javax.swing.JFrame {
 
     HashMap<String, ArrayList<String>> listaT;
     StringBuffer bfIn;
-    ArrayList<String> terminales;
+    ArrayList<String> noTerminales;
     
     public EditorFrame() {
         initComponents();
         listaT= new HashMap<>();
         bfIn = new StringBuffer();
-        terminales = new ArrayList<>();
+        noTerminales = new ArrayList<>();
         
     }
 
@@ -59,6 +59,11 @@ public class EditorFrame extends javax.swing.JFrame {
         btnTerminal.setText("TERMINAL");
 
         btnNoTerminal.setText("NO TERMINAL");
+        btnNoTerminal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoTerminalActionPerformed(evt);
+            }
+        });
 
         btnGrabar.setText("GRABAR");
 
@@ -220,9 +225,14 @@ public class EditorFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_bttNuevoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnNoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTerminalActionPerformed
+        obtenerNoTerminales();        
+        ventanaNoTerminales ven = new ventanaNoTerminales(noTerminales);
+        ven.setVisible(true);
+        
+    }//GEN-LAST:event_btnNoTerminalActionPerformed
+
+  
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -286,5 +296,10 @@ public class EditorFrame extends javax.swing.JFrame {
         }
     
     return listcad;
+    }
+
+    private void obtenerNoTerminales() {
+    
+    
     }
 }
