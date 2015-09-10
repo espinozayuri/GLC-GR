@@ -200,17 +200,17 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCadena">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Abcd"/>
+        <Property name="text" type="java.lang.String" value="A b c d"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="terminal"/>
+        <Property name="text" type="java.lang.String" value="No terminal"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="cadena"/>
+        <Property name="text" type="java.lang.String" value="cadena (utilizar espacio)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">

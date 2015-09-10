@@ -6,14 +6,16 @@ import java.util.HashMap;
 
 public class GLCEditor extends javax.swing.JFrame {
 
-    HashMap<String, ArrayList<String>> listaT;
+    HashMap<String, ArrayList<String>> listaT;//lista principal
+    //hashmap < Key(No terminal), AL < terminales/no terminal >
     StringBuffer bfIn;
     ArrayList<String> noTerminales;
     ArrayList<String> terminales;
+    
 
     public GLCEditor() {
         initComponents();
-        listaT = new HashMap<>();
+        listaT = new HashMap<>(); // vacia
         bfIn = new StringBuffer();
         noTerminales = new ArrayList<>();
         terminales = new ArrayList<>();
@@ -95,11 +97,11 @@ public class GLCEditor extends javax.swing.JFrame {
             }
         });
 
-        txtCadena.setText("Abcd");
+        txtCadena.setText("A b c d");
 
-        jLabel1.setText("terminal");
+        jLabel1.setText("No terminal");
 
-        jLabel2.setText("cadena");
+        jLabel2.setText("cadena (utilizar espacio)");
 
         jLabel3.setText("--->");
 
@@ -272,11 +274,11 @@ public class GLCEditor extends javax.swing.JFrame {
             }
         });
 
-        txtCadena.setText("Abcd");
+        txtCadena.setText("A b c d");
 
-        jLabel1.setText("terminal");
+        jLabel1.setText("No terminal");
 
-        jLabel2.setText("cadena");
+        jLabel2.setText("cadena (utilizar espacios)");
 
         jLabel3.setText("--->");
 
@@ -383,14 +385,26 @@ public class GLCEditor extends javax.swing.JFrame {
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
 
         //guardar en hashpmap
-        //separar por espacios
-        //añadir condiciones para introducir al hashmap si hubiera un no terminal repetido
-        String terminal = txtTerminal.getText().toString();
-        ArrayList<String> cadena = convertirEnCad(txtTerminal.getText().toString());
-        listaT.put(terminal, cadena);
-
+        
+        String terminalAux = txtTerminal.getText().toString(); //agarra el texto del cuadro
+        //Si existe la llave y tiene un AL no volver a crear un array list
+        //sino crearlo        
+        if(listaT.containsKey(terminalAux)){
+            //si contiene la llave entonces añadir los elemtos al AL correspondiente
+            ArrayList<String> alAux =listaT.get(terminalAux);
+            alAux.add(txtCadena.getText()); //añade al AL los nuevos elementos
+            listaT.put(terminalAux,alAux);
+        
+        }
+        else{ //si el noTerminal no esta en el Hashmap, colocarlo y crear su AL
+            
+        ArrayList<String> cadena=   new ArrayList<>();
+        cadena.add(txtCadena.getText().toString());  
+        listaT.put(terminalAux, cadena);
+        
+        }    
         //actualiza la parte grafica
-        bfIn = bfIn.append(terminal + "---->" + txtCadena.getText() + "\n");
+        bfIn = bfIn.append(terminalAux + "---->" + txtCadena.getText() + "\n");
         txtMain.setText(bfIn.toString());
 
     }//GEN-LAST:event_btnAniadirActionPerformed
@@ -417,6 +431,9 @@ public class GLCEditor extends javax.swing.JFrame {
 
         ventanaNoTerminales ven = new ventanaNoTerminales(noTerminales);
         ven.setVisible(true);
+        
+        
+        System.out.println(listaT.get("T"));
 
     }//GEN-LAST:event_btnNoTerminalActionPerformed
 
