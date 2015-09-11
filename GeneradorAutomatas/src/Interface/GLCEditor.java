@@ -1,4 +1,3 @@
-
 package Interface;
 
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ public class GLCEditor extends javax.swing.JFrame {
     StringBuffer bfIn;
     ArrayList<String> noTerminales;
     ArrayList<String> terminales;
-    
 
     public GLCEditor() {
         initComponents();
@@ -22,7 +20,6 @@ public class GLCEditor extends javax.swing.JFrame {
         terminales = new ArrayList<>();
 
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -213,29 +210,26 @@ public class GLCEditor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     //Boton añadir
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
 
         //guardar en hashpmap
-        
         String terminalAux = txtTerminal.getText().toString(); //agarra el texto del cuadro
         //Si existe la llave y tiene un AL no volver a crear un array list
         //sino crearlo        
-        if(listaT.containsKey(terminalAux)){
+        if (listaT.containsKey(terminalAux)) {
             //si contiene la llave entonces añadir los elemtos al AL correspondiente
-            ArrayList<String> alAux =listaT.get(terminalAux);
+            ArrayList<String> alAux = listaT.get(terminalAux);
             alAux.add(txtCadena.getText()); //añade al AL los nuevos elementos
-            listaT.put(terminalAux,alAux);
-        
+            listaT.put(terminalAux, alAux);
+
+        } else { //si el noTerminal no esta en el Hashmap, colocarlo y crear su AL
+
+            ArrayList<String> cadena = new ArrayList<>();
+            cadena.add(txtCadena.getText().toString());
+            listaT.put(terminalAux, cadena);
+
         }
-        else{ //si el noTerminal no esta en el Hashmap, colocarlo y crear su AL
-            
-        ArrayList<String> cadena=   new ArrayList<>();
-        cadena.add(txtCadena.getText().toString());  
-        listaT.put(terminalAux, cadena);
-        
-        }    
         //actualiza la parte grafica
         bfIn = bfIn.append(terminalAux + "---->" + txtCadena.getText() + "\n");
         txtMain.setText(bfIn.toString());
@@ -264,37 +258,41 @@ public class GLCEditor extends javax.swing.JFrame {
 
         ventanaNoTerminales ven = new ventanaNoTerminales(noTerminales);
         ven.setVisible(true);
-        
-        
+
         System.out.println(listaT.get("T"));
 
     }//GEN-LAST:event_btnNoTerminalActionPerformed
 
     private void btnTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminalActionPerformed
         // TODO add your handling code here:
-        obtenerTerminales();        
+        obtenerTerminales();
         ventanaTerminales ven1 = new ventanaTerminales(terminales);
         ven1.setVisible(true);
-        
+
     }//GEN-LAST:event_btnTerminalActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
         // TODO add your handling code here:
         GuardarArchivo g = new GuardarArchivo();
         g.crearArchivo("Gramaticas Guardadas.txt", txtMain.getText());
-        
-        
+
+
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         // TODO add your handling code here:
         //comprobar sintaxis
-        
-        
+
+
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void btnGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenActionPerformed
+        //lenguaje generado
         
+        String lengGen = generarLeng();
+        JOptionPane.showOptionDialog(this,  lengGen, "Lenguaje Generado", JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{" OK "}, "OK");
+
+
     }//GEN-LAST:event_btnGenActionPerformed
 
     private void btnDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDataActionPerformed
@@ -354,8 +352,17 @@ public class GLCEditor extends javax.swing.JFrame {
 
     private void obtenerTerminales() {
         //obterner terminales y actualizar arraylist
-        
-   }
+
+    }
+
+    private String generarLeng() {
+    StringBuffer leng= new StringBuffer();
+    leng.append("L(G):{");
+    //metodo de generador
     
+    leng.append("}");
+    return leng.toString();
     
+    }
+
 }
