@@ -1,0 +1,3 @@
+T---->A b c d
+T---->A b c d
+T---->A b c d

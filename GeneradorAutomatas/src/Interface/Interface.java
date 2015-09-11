@@ -25,7 +25,7 @@ public class Interface extends JFrame implements ActionListener {
     } 
     
     private void initComponents() {
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         panel= new Menu();
         getContentPane().add(panel);
         setVisible(true);
