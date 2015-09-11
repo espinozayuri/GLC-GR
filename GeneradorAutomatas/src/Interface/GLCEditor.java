@@ -384,7 +384,8 @@ public class GLCEditor extends javax.swing.JFrame {
         
         boolean res=false;
         for(int i =0; i<l.length();i++){
-        if(Character.isUpperCase(l.charAt(i))) res = true;
+       
+        if(Character.isUpperCase(l.charAt(i))&&l.charAt(i)!= 'E') res = true;
           }    
         return res;
     }
