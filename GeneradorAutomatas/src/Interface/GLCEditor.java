@@ -358,11 +358,35 @@ public class GLCEditor extends javax.swing.JFrame {
     private String generarLeng() {
     StringBuffer leng= new StringBuffer();
     leng.append("L(G):{");
+    obtenerNoTerminales();
     //metodo de generador
     
+    //isUpperCasse()
+    //ciclo para revisar todos los arrays de las keys
+    for(String nt:noTerminales){
+        for(String el: listaT.get(nt)){
+        //recorre todos los terminales que tiene la key nt
+        //si el tiene mayusculas remplazar, sino añadir al lg y diferente de E    
+        if(!containsMayus(el.trim())){
+        leng.append(el);
+        leng.append(",");
+        }            
+            
+        }
+            
+    } //borrar el ultimo come    
     leng.append("}");
     return leng.toString();
     
+    }
+
+    private boolean containsMayus(String l) {
+        
+        boolean res=false;
+        for(int i =0; i<l.length();i++){
+        if(Character.isUpperCase(l.charAt(i))) res = true;
+          }    
+        return res;
     }
 
 }
