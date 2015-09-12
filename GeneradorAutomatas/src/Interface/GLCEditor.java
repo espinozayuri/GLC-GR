@@ -1,5 +1,12 @@
 package Interface;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -83,6 +90,11 @@ public class GLCEditor extends javax.swing.JFrame {
         });
 
         btnRecuperar.setText("RECUPERAR");
+        btnRecuperar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecuperarActionPerformed(evt);
+            }
+        });
 
         btnVerificar.setText("VERIFICAR");
         btnVerificar.addActionListener(new java.awt.event.ActionListener() {
@@ -272,9 +284,26 @@ public class GLCEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTerminalActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-        // TODO add your handling code here:
-        GuardarArchivo g = new GuardarArchivo();
-        g.crearArchivo("Gramaticas Guardadas.txt", txtMain.getText());
+         File crearArchivo;
+        FileWriter escribirDatos;
+        BufferedWriter bw;
+        PrintWriter wr;
+        
+        try {
+            crearArchivo=new File("Gramatica Guardadas.txt");
+            escribirDatos= new FileWriter(crearArchivo);
+            bw= new BufferedWriter(escribirDatos);
+            wr= new PrintWriter(crearArchivo);
+            
+            wr.write(txtMain.getText());
+            wr.append("");
+            
+            wr.close();
+            bw.close();
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
+        }
 
 
     }//GEN-LAST:event_btnGrabarActionPerformed
@@ -300,6 +329,25 @@ public class GLCEditor extends javax.swing.JFrame {
         data.setVisible(true);
         //JOptionPane.showMessageDialog(this, "Operación realizada correctamente");
     }//GEN-LAST:event_btnDataActionPerformed
+
+    private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
+        String direccion = "R:\\Universidad\\Automatas\\GLC-GR\\GeneradorAutomatas\\Gramatica Guardadas.txt";
+        File archivo = new File(direccion);
+        //System.out.println(archivo.getAbsolutePath());
+        
+        try{
+            BufferedReader leer = new BufferedReader(new FileReader(archivo));
+            String linea = leer.readLine();
+            while(linea!= null){
+                txtMain.setText(linea + "\n");
+                linea = leer.readLine();
+                
+            }
+        }
+        catch (IOException e){
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
+        }
+    }//GEN-LAST:event_btnRecuperarActionPerformed
 
     public static void main(String args[]) {
 
