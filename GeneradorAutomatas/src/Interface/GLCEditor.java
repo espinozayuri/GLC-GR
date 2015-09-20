@@ -7,18 +7,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class GLCEditor extends javax.swing.JFrame {
-
+    
     HashMap<String, ArrayList<String>> listaT;//lista principal
     //hashmap < Key(No terminal), AL < terminales/no terminal >
     StringBuffer bfIn;
     ArrayList<String> noTerminales;
     ArrayList<String> terminales;
-
+    private char epsilon = 'E';
     public GLCEditor() {
         initComponents();
         listaT = new HashMap<>(); // vacia
@@ -201,7 +204,7 @@ public class GLCEditor extends javax.swing.JFrame {
                         .addComponent(btnTerminal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnNoTerminal)
-                        .addGap(70, 70, 70))
+                        .addGap(66, 66, 66))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,12 +214,12 @@ public class GLCEditor extends javax.swing.JFrame {
                             .addComponent(bttNuevo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)))
+                        .addGap(20, 20, 20)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGrabar)
                     .addComponent(btnRecuperar)
                     .addComponent(btnVerificar))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -224,28 +227,9 @@ public class GLCEditor extends javax.swing.JFrame {
 
     //Boton añadir
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-
-        //guardar en hashpmap
-        String terminalAux = txtTerminal.getText().toString(); //agarra el texto del cuadro
-        //Si existe la llave y tiene un AL no volver a crear un array list
-        //sino crearlo        
-        if (listaT.containsKey(terminalAux)) {
-            //si contiene la llave entonces añadir los elemtos al AL correspondiente
-            ArrayList<String> alAux = listaT.get(terminalAux);
-            alAux.add(txtCadena.getText()); //añade al AL los nuevos elementos
-            listaT.put(terminalAux, alAux);
-
-        } else { //si el noTerminal no esta en el Hashmap, colocarlo y crear su AL
-
-            ArrayList<String> cadena = new ArrayList<>();
-            cadena.add(txtCadena.getText().toString());
-            listaT.put(terminalAux, cadena);
-
-        }
-        //actualiza la parte grafica
-        bfIn = bfIn.append(terminalAux + "---->" + txtCadena.getText() + "\n");
-        txtMain.setText(bfIn.toString());
-
+        String terminalAux = txtTerminal.getText().toString();
+        String cadena = txtCadena.getText();
+        anadir(terminalAux,cadena);
     }//GEN-LAST:event_btnAniadirActionPerformed
 
     private void txtTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTerminalActionPerformed
@@ -254,15 +238,7 @@ public class GLCEditor extends javax.swing.JFrame {
 
     private void bttNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttNuevoActionPerformed
         // Borra todos los datos actuales
-
-        bfIn = new StringBuffer();
-        txtMain.setText(bfIn.toString());
-        txtCadena.setText("");
-        txtTerminal.setText("");
-        listaT = new HashMap<>();
-        terminales.clear();
-        noTerminales.clear();
-
+        reiniciar();        
     }//GEN-LAST:event_bttNuevoActionPerformed
 
     private void btnNoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTerminalActionPerformed
@@ -276,7 +252,7 @@ public class GLCEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNoTerminalActionPerformed
 
     private void btnTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminalActionPerformed
-        // TODO add your handling code here:
+       
         obtenerTerminales();
         ventanaTerminales ven1 = new ventanaTerminales(terminales);
         ven1.setVisible(true);
@@ -284,7 +260,7 @@ public class GLCEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTerminalActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-         File crearArchivo;
+        File crearArchivo;
         FileWriter escribirDatos;
         BufferedWriter bw;
         PrintWriter wr;
@@ -309,10 +285,25 @@ public class GLCEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-        // TODO add your handling code here:
-        //comprobar sintaxis
-
-
+        obtenerNoTerminales();
+        obtenerTerminales();         
+        boolean res = true;
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaT.entrySet()) {            
+            String key = entrySet.getKey();
+            res = verificarNT(key);
+            if(res){
+                ArrayList<String> value = entrySet.getValue();
+                res = verificarTNT(value);
+                if(!res){
+                    break;
+                }                
+            }
+            else{
+                break;
+            }
+        }  
+        if(res)
+            JOptionPane.showMessageDialog(null,"Todo esta bien");
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void btnGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenActionPerformed
@@ -331,18 +322,24 @@ public class GLCEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDataActionPerformed
 
     private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
-        String direccion = "R:\\Universidad\\Automatas\\GLC-GR\\GeneradorAutomatas\\Gramatica Guardadas.txt";
+        reiniciar();
+        String direccion = "Gramatica Guardadas.txt";
         File archivo = new File(direccion);
         //System.out.println(archivo.getAbsolutePath());
         
         try{
             BufferedReader leer = new BufferedReader(new FileReader(archivo));
             String linea = leer.readLine();
+            String aux="";
             while(linea!= null){
-                txtMain.setText(linea + "\n");
+                String aux2[]= linea.split("---->");
+                if(aux2.length>1){
+                    anadir(aux2[0],aux2[1]);
+                }
+                aux+= linea+"\n";
                 linea = leer.readLine();
-                
             }
+            txtMain.setText(aux);
         }
         catch (IOException e){
             JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
@@ -391,51 +388,210 @@ public class GLCEditor extends javax.swing.JFrame {
         return listcad;
     }
 
-    private void obtenerNoTerminales() {
-
-        //obtener Keys del hashmap
+    private void obtenerNoTerminales() 
+    {
+        //Keys del hashmap
+        //obtenerTerminales();
         noTerminales = new ArrayList<>(listaT.keySet());
-
-    }
-
-    private void obtenerTerminales() {
-        //obterner terminales y actualizar arraylist
-
-    }
-
-    private String generarLeng() {
-    StringBuffer leng= new StringBuffer();
-    leng.append("L(G):{");
-    obtenerNoTerminales();
-    //metodo de generador
-    
-    //isUpperCasse()
-    //ciclo para revisar todos los arrays de las keys
-    for(String nt:noTerminales){
-        for(String el: listaT.get(nt)){
-        //recorre todos los terminales que tiene la key nt
-        //si el tiene mayusculas remplazar, sino añadir al lg y diferente de E    
-        if(!containsMayus(el.trim())){
-        leng.append(el);
-        leng.append(",");
-        }            
-            
+        for (int i = 0; i < noTerminales.size(); i++) {
+            if(noTerminales.get(i).equals(epsilon+""))
+                noTerminales.remove(i);
         }
-            
+
+    }
+        
+    private boolean esGramaticaMinuscula(String ss)
+    {
+        boolean res=false;
+        for(int i =0; i<ss.length();i++) //
+        {
+            if(!Character.isUpperCase(ss.charAt(i)) || ss.charAt(i)== epsilon)
+            {    
+                if(Character.isLowerCase(ss.charAt(i))||ss.charAt(i)== epsilon||ss.charAt(i)== ' ')
+                {
+                    res = true;
+                }
+            }
+          }    
+        return res;
+    }
+
+    private void obtenerTerminales() 
+    {
+        //obtenerNoTerminales();//con esto generamos los no terminales y ya no tomamos encuenta para los terminales
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaT.entrySet()) 
+        {
+            //String key = entrySet.getKey();
+            ArrayList<String> value = entrySet.getValue();
+            for (String e : value)//e contiene la cadena de texto 
+            {
+                String [] aux;
+                boolean res=false;
+                e = e.trim();//elimina espacios adelante y atras de la cadena 
+                aux=e.split(" ");
+                for (String sa : aux)//sa es elemento de aux, aux=[S,a,s,B] ---> sa=S 
+                {
+                    res=noTerminales.contains(sa);//
+                    if(!res)
+                    {
+                        res= terminales.contains(sa);
+                        if(!res)
+                        {                            
+                            if(esGramaticaMinuscula(sa)){
+                                terminales.add(sa);
+                            }                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private String generarLeng() 
+    {
+        StringBuffer leng= new StringBuffer();
+        leng.append("L(G):{");
+        obtenerNoTerminales();
+        //metodo de generador
+    
+        //isUpperCasse()
+        //ciclo para revisar todos los arrays de las keys
+        for(String nt:noTerminales)
+        {
+            for(String el: listaT.get(nt))
+            {
+              //recorre todos los terminales que tiene la key nt
+              //si el tiene mayusculas remplazar, sino añadir al lg y diferente de E    
+            if(!containsMayus(el.trim()))
+            {
+                leng.append(el);
+                leng.append(",");
+            }
+        }    
     } //borrar el ultimo come    
     leng.append("}");
     return leng.toString();
     
     }
 
-    private boolean containsMayus(String l) {
-        
+    private boolean containsMayus(String l) 
+    {
         boolean res=false;
-        for(int i =0; i<l.length();i++){
-       
-        if(Character.isUpperCase(l.charAt(i))&&l.charAt(i)!= 'E') res = true;
+        for(int i =0; i<l.length();i++)
+        {
+            if(Character.isUpperCase(l.charAt(i))&&l.charAt(i)!= 'E')
+            {
+                res = true;
+            }
           }    
         return res;
     }
+    
+    private boolean verificarTNT(ArrayList<String> value) 
+    {
+        obtenerTerminales();
+        boolean res = true;
+        for (String e : value) 
+        {
+            e=e.trim();
+            String aux[] = e.split(" ");            
+            for (String e2 : aux) 
+            {
+                //if(esGramaticaMinuscula(aux))
+                //{
+                    res = terminales.contains(e2);
+                    if(!res)
+                    {
+                        res = noTerminales.contains(e2);
+                        if(!res)
+                        {
+                            res = false;
+                            JOptionPane.showMessageDialog(null, "tnt no pertenece a la gramatica");
+                            break;
+                        }                
+                    }                
+                //}
+            }
+            if(!res)
+            {
+                break;
+            }
+        }        
+        return res;
+    }
+        
+   private boolean verificarNT(String termino) 
+   {
+       /*
+        String path = "/imagenes/bien.png";  
+        URL url = this.getClass().getResource(path);  
+        ImageIcon icon = new ImageIcon(url);
+        */
+    
+        boolean res = noTerminales.contains(termino);
+        boolean res1= containsMayus(termino);
+        if((!res)&&(!res1))
+            JOptionPane.showMessageDialog(null, "nt no pertenece a la gramatica");
+        //else
+        //{
+            //jbl4.setIcon(icon);
+            //jbl4.setVisible(res1);
+            //JOptionPane.showMessageDialog(null, "nt pertenece a la gramatica");
+        //}
+        return res; 
+    }
 
+    private boolean duplicado(String nt, String tnt) {
+        boolean res = false;
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaT.entrySet()) {
+            String key = entrySet.getKey();
+            if(key.equals(nt)){                
+                ArrayList<String> value = entrySet.getValue();
+                for (String e : value) {
+                    if(e.equals(tnt))
+                        res = true;
+                }
+            }
+        }
+        return res;        
+    }
+
+    private void anadir(String terminalAux, String txtcadena) {
+        //guardar en hashpmap
+         //agarra el texto del cuadro NO TERMINAL
+        //Si existe la llave y tiene un AL no volver a crear un array list
+        //sino crearlo      
+        if(!duplicado(terminalAux,txtcadena)){
+            if (listaT.containsKey(terminalAux)) {
+                //si contiene la llave entonces añadir los elemtos al AL correspondiente
+                ArrayList<String> alAux = listaT.get(terminalAux);
+                alAux.add(txtcadena); //añade al AL los nuevos elementos
+                listaT.put(terminalAux, alAux);
+
+            } else { //si el noTerminal no esta en el Hashmap, colocarlo y crear su AL
+
+                ArrayList<String> cadena = new ArrayList<>();
+                cadena.add(txtcadena.toString());
+                listaT.put(terminalAux, cadena);
+
+            }
+            //actualiza la parte grafica
+            bfIn = bfIn.append(terminalAux + "---->" + txtcadena + "\n");
+            txtMain.setText(bfIn.toString());
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Regla duplicada");
+        }
+    }
+
+    private void reiniciar() {
+        // Borra todos los datos actuales
+        bfIn = new StringBuffer();
+        txtMain.setText(bfIn.toString());
+        txtCadena.setText("");
+        txtTerminal.setText("");
+        listaT = new HashMap<>();
+        terminales.clear();
+        noTerminales.clear();
+    }
 }
