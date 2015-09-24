@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Interface;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,10 +19,20 @@ public class GREditor extends javax.swing.JFrame {
     /**
      * Creates new form GREditor
      */
+    HashMap<String, ArrayList<String>> listaPrincipal; //valores key como Noterminales y su AL de terminales
+
+    ArrayList<String> noTerminales;
+    ArrayList<String> terminales;
+    StringBuffer bfIn;
+
     public GREditor() {
         initComponents();
         setTitle("GR");
-        setBounds(800, 400, 435, 345); 
+        setBounds(800, 400, 435, 345);
+        noTerminales = new ArrayList<>();
+        terminales = new ArrayList<>();
+        bfIn = new StringBuffer();
+        listaPrincipal = new HashMap<>(); // vacia
     }
 
     /**
@@ -36,9 +50,9 @@ public class GREditor extends javax.swing.JFrame {
         btnGrabar = new javax.swing.JButton();
         btnRecuperar = new javax.swing.JButton();
         btnVerificar = new javax.swing.JButton();
-        txtTerminal = new javax.swing.JTextField();
+        txtnoTerminal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtCadena1 = new javax.swing.JTextField();
+        txtTerminales = new javax.swing.JTextField();
         btnAniadir = new javax.swing.JButton();
         bttNuevo = new javax.swing.JButton();
         btnTerminal = new javax.swing.JButton();
@@ -91,16 +105,16 @@ public class GREditor extends javax.swing.JFrame {
             }
         });
 
-        txtTerminal.setText("T");
-        txtTerminal.addActionListener(new java.awt.event.ActionListener() {
+        txtnoTerminal.setText("T");
+        txtnoTerminal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTerminalActionPerformed(evt);
+                txtnoTerminalActionPerformed(evt);
             }
         });
 
         jLabel3.setText("--->");
 
-        txtCadena1.setText("A b c d");
+        txtTerminales.setText("A b c d");
 
         btnAniadir.setText("+");
         btnAniadir.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +162,7 @@ public class GREditor extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTerminal)
+                                    .addComponent(txtnoTerminal)
                                     .addComponent(buttonAEFD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -160,7 +174,7 @@ public class GREditor extends javax.swing.JFrame {
                                         .addGap(22, 22, 22)
                                         .addComponent(jLabel3)
                                         .addGap(18, 18, 18)
-                                        .addComponent(txtCadena1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(60, 60, 60)
                                         .addComponent(jLabel2))))
@@ -200,9 +214,9 @@ public class GREditor extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtnoTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(txtCadena1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAniadir)
                             .addComponent(bttNuevo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -233,12 +247,12 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonERActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-       
+
 
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
-        
+
     }//GEN-LAST:event_btnRecuperarActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
@@ -247,12 +261,14 @@ public class GREditor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnVerificarActionPerformed
 
-    private void txtTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTerminalActionPerformed
+    private void txtnoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnoTerminalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTerminalActionPerformed
+    }//GEN-LAST:event_txtnoTerminalActionPerformed
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-
+        String noterminalAux = txtnoTerminal.getText();
+        String cadena = txtTerminales.getText();
+        anadir(noterminalAux, cadena);
     }//GEN-LAST:event_btnAniadirActionPerformed
 
     private void bttNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttNuevoActionPerformed
@@ -306,6 +322,52 @@ public class GREditor extends javax.swing.JFrame {
         });
     }
 
+    private void anadir(String noterminalAux, String txtcadena) {
+        //guardar en hashpmap
+        //agarra el texto del cuadro NO TERMINAL
+        //Si existe la llave y tiene un AL no volver a crear un array list
+        //sino crearlo      
+        if (!duplicado(noterminalAux, txtcadena)) {
+            if (listaPrincipal.containsKey(noterminalAux)) {
+                //si contiene la llave entonces añadir los elemtos al AL correspondiente
+                ArrayList<String> alAux = listaPrincipal.get(noterminalAux);
+                alAux.add(txtcadena); //añade al AL los nuevos elementos
+                listaPrincipal.put(noterminalAux, alAux);
+
+            } else { //si el noTerminal no esta en el Hashmap, colocarlo y crear su AL
+
+                ArrayList<String> cadena = new ArrayList<>();
+                cadena.add(txtcadena.toString());
+                listaPrincipal.put(noterminalAux, cadena);
+
+            }
+            //actualiza la parte grafica
+            bfIn = bfIn.append(noterminalAux + "---->" + txtcadena + "\n");
+            txtMain.setText(bfIn.toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "Regla duplicada");
+            System.out.println(listaPrincipal);
+        }
+    }
+
+    private boolean duplicado(String nt, String tnt) {
+        boolean res = false;
+        if(!listaPrincipal.isEmpty()){
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {
+            String key = entrySet.getKey();
+            if (key.equals(nt)) {
+                ArrayList<String> value = entrySet.getValue();
+                for (String e : value) {
+                    if (e.equals(tnt)) {
+                        res = true;
+                    }
+                }
+            }
+        }}
+        
+        return res;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAniadir;
     private javax.swing.JButton btnGrabar;
@@ -321,8 +383,8 @@ public class GREditor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtCadena1;
     private javax.swing.JTextPane txtMain;
-    private javax.swing.JTextField txtTerminal;
+    private javax.swing.JTextField txtTerminales;
+    private javax.swing.JTextField txtnoTerminal;
     // End of variables declaration//GEN-END:variables
 }

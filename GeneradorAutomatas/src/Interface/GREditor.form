@@ -28,7 +28,7 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtTerminal" max="32767" attributes="0"/>
+                                  <Component id="txtnoTerminal" max="32767" attributes="0"/>
                                   <Component id="buttonAEFD" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -42,7 +42,7 @@
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="txtCadena1" min="-2" pref="114" max="-2" attributes="0"/>
+                                      <Component id="txtTerminales" min="-2" pref="114" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
@@ -98,9 +98,9 @@
                       </Group>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtTerminal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtnoTerminal" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCadena1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTerminales" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnAniadir" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bttNuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -176,12 +176,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerificarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTerminal">
+    <Component class="javax.swing.JTextField" name="txtnoTerminal">
       <Properties>
         <Property name="text" type="java.lang.String" value="T"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTerminalActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtnoTerminalActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -189,7 +189,7 @@
         <Property name="text" type="java.lang.String" value="---&gt;"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCadena1">
+    <Component class="javax.swing.JTextField" name="txtTerminales">
       <Properties>
         <Property name="text" type="java.lang.String" value="A b c d"/>
       </Properties>
