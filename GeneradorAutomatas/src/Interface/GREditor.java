@@ -17,6 +17,8 @@ public class GREditor extends javax.swing.JFrame {
      */
     public GREditor() {
         initComponents();
+        setTitle("GR");
+        setBounds(800, 400, 435, 345); 
     }
 
     /**
@@ -45,8 +47,6 @@ public class GREditor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMain = new javax.swing.JTextPane();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         buttonAEFD.setText("AEFD");
         buttonAEFD.addActionListener(new java.awt.event.ActionListener() {
