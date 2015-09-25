@@ -54,13 +54,23 @@ public class ParserGenerator {
             int i =1;
             for(String terminal : e.getValue()){
                 terminales(terminal);
-                documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'"+"\n");
+                 //documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> simbol '"+Terminales+"'"+"\n");
+                if(Terminales.contains("A*")){
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many1 PA"+"\n");
+                }else {
+                        if(Terminales.contains("A+")){
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many PA"+"\n");
+                            }else {if(Terminales.contains("A?")){
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> option PA"+"\n");
+                            }
+                                        else
+                              documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'"+"\n");
                 i++;
-//                System.out.println("funcio "+e.getValue());
+            System.out.println(Terminales);
             }
         }
         System.out.println("lista "+listaT);
-        
+            }}
         return documento;
     }
     
