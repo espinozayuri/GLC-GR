@@ -151,19 +151,11 @@ public class GLCEditor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(59, 59, 59)
-                .addComponent(btnGrabar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRecuperar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVerificar)
-                .addContainerGap(65, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAniadir)
@@ -174,6 +166,12 @@ public class GLCEditor extends javax.swing.JFrame {
                         .addGap(36, 36, 36))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnGrabar)
+                                .addGap(35, 35, 35)
+                                .addComponent(btnRecuperar)
+                                .addGap(27, 27, 27)
+                                .addComponent(btnVerificar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
@@ -193,7 +191,7 @@ public class GLCEditor extends javax.swing.JFrame {
                                 .addComponent(btnParser)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnGen)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(56, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +245,6 @@ public class GLCEditor extends javax.swing.JFrame {
 
     private void bttNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttNuevoActionPerformed
         // Borra todos los datos actuales
-
         bfIn = new StringBuffer();
         txtMain.setText(bfIn.toString());
         txtCadena.setText("");
@@ -255,7 +252,6 @@ public class GLCEditor extends javax.swing.JFrame {
         listaT = new HashMap<>();
         terminales.clear();
         noTerminales.clear();
-
     }//GEN-LAST:event_bttNuevoActionPerformed
 
     private void btnNoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTerminalActionPerformed
@@ -277,7 +273,7 @@ public class GLCEditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTerminalActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-         File crearArchivo;
+        File crearArchivo;
         FileWriter escribirDatos;
         BufferedWriter bw;
         PrintWriter wr;
@@ -297,8 +293,6 @@ public class GLCEditor extends javax.swing.JFrame {
         } catch (Exception e){
             JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
         }
-
-
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
