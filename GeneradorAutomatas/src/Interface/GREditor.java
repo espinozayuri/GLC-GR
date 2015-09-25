@@ -24,6 +24,7 @@ public class GREditor extends javax.swing.JFrame {
     ArrayList<String> noTerminales;
     ArrayList<String> terminales;
     StringBuffer bfIn;
+    char epsilon='E';
 
     public GREditor() {
         initComponents();
@@ -256,9 +257,26 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecuperarActionPerformed
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-        // TODO add your handling code here:
-        //comprobar sintaxis
-
+        obtenerNoTerminales();
+        obtenerTerminales();         
+        boolean res = true;
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {            
+            String key = entrySet.getKey();
+            res = verificarNT(key);
+            if(!res)
+            {
+                ArrayList<String> value = entrySet.getValue();
+                res = verificarTNT(value);
+                if(!res){
+                    break;
+                }                
+            }
+            else{
+                break;
+            }
+        }  
+        if(res)
+            JOptionPane.showMessageDialog(null,"esta bn");
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void txtnoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnoTerminalActionPerformed
@@ -276,11 +294,18 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_bttNuevoActionPerformed
 
     private void btnTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminalActionPerformed
-        // 
+        obtenerTerminales();
+        ventanaTerminales ven1 = new ventanaTerminales(terminales);
+        ven1.setVisible(true);
     }//GEN-LAST:event_btnTerminalActionPerformed
 
     private void btnNoTerminalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTerminalesActionPerformed
-        // TODO add your handling code here:
+        obtenerNoTerminales();
+
+        ventanaNoTerminales ven = new ventanaNoTerminales(noTerminales);
+        ven.setVisible(true);
+
+        System.out.println(listaPrincipal.get("T"));
     }//GEN-LAST:event_btnNoTerminalesActionPerformed
 
     private void buttonAEFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAEFDActionPerformed
@@ -365,6 +390,113 @@ public class GREditor extends javax.swing.JFrame {
             }
         }}
         
+        return res;
+    }
+    
+     private void obtenerNoTerminales() 
+     {
+        //obtener Keys del hashmap
+        noTerminales = new ArrayList<>(listaPrincipal.keySet());
+        for (int i = 0; i < noTerminales.size(); i++) 
+        {
+            if(noTerminales.get(i).equals(epsilon+""))
+                noTerminales.remove(i);
+        }
+    }
+    
+    private void obtenerTerminales() {
+        //obtenerNoTerminales();//con esto generamos los no terminales y ya no tomamos encuenta para los terminales
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) 
+        {
+            //String key = entrySet.getKey();
+            ArrayList<String> value = entrySet.getValue();
+            for (String e : value)//e contiene la cadena de texto 
+            {
+                String [] aux;
+                boolean res=false;
+                e = e.trim();//elimina espacios adelante y atras de la cadena 
+                aux=e.split(" ");
+                for (String sa : aux)//sa es elemento de aux, aux=[S,a,s,B] ---> sa=S 
+                {
+                    res=noTerminales.contains(sa);//
+                    if(!res)
+                    {
+                        res= terminales.contains(sa);
+                        if(!res)
+                        {                            
+                            if(esGramaticaMinuscula(sa)){
+                                terminales.add(sa);
+                            }                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean esGramaticaMinuscula(String ss)
+    {
+        boolean res=false;
+        for(int i =0; i<ss.length();i++) //
+        {
+            if(!Character.isUpperCase(ss.charAt(i)) || ss.charAt(i)== epsilon)
+            {    
+                if(Character.isLowerCase(ss.charAt(i))||ss.charAt(i)== epsilon||ss.charAt(i)== ' '||ss.charAt(i)=='*'||ss.charAt(i)=='+'||ss.charAt(i)=='?')
+                {
+                    res = true;
+                }
+            }
+          }    
+        return res;
+    }
+    
+    private boolean verificarNT(String l) 
+   {
+        boolean res = noTerminales.contains(l);
+        boolean res1= contieneMayusMinus(l);
+        if((!res)&&(res1))
+            JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
+         return res; 
+    }
+    
+    private boolean contieneMayusMinus(String l) 
+    {       
+        boolean res=false;
+        for(int i =0; i<l.length();i++)
+        {
+            if((Character.isUpperCase(l.charAt(i))&&(l.charAt(i)!= 'E')||(Character.isLowerCase(l.charAt(i))))) 
+                res = true;
+        }    
+        return res;
+    }
+    
+    private boolean verificarTNT(ArrayList<String> value) 
+    {
+        obtenerTerminales();
+        boolean res = true;
+        for (String e : value) 
+        {
+            e=e.trim();
+            String aux[] = e.split(" ");            
+            for (String e2 : aux) 
+            {
+                    res = terminales.contains(e2);
+                    if(!res)
+                    {
+                        res = noTerminales.contains(e2);
+                        if(!res)
+                        {
+                            res = false;
+                            JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
+                            break;
+                        }                
+                    }
+            }
+            if(!res)
+            {
+                break;
+            }
+        }        
         return res;
     }
 
