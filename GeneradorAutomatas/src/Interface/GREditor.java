@@ -5,6 +5,13 @@
  */
 package Interface;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +33,7 @@ public class GREditor extends javax.swing.JFrame {
     ArrayList<String> noTerminales;
     ArrayList<String> terminales;
     StringBuffer bfIn;
+    char epsilon='E';
 
     public GREditor() {
         initComponents();
@@ -157,48 +165,44 @@ public class GREditor extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtnoTerminal)
-                                    .addComponent(buttonAEFD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonAEFND)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(buttonER))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(60, 60, 60)
-                                        .addComponent(jLabel2))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(btnGrabar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRecuperar)
-                        .addGap(25, 25, 25)))
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnVerificar)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtnoTerminal)
+                            .addComponent(buttonAEFD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAniadir)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bttNuevo))
-                            .addComponent(btnNoTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(buttonAEFND)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonER))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(22, 22, 22)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnAniadir)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bttNuevo))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnVerificar)
+                                        .addComponent(btnNoTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnGrabar)
+                            .addGap(40, 40, 40)
+                            .addComponent(btnRecuperar))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,32 +212,38 @@ public class GREditor extends javax.swing.JFrame {
                     .addComponent(buttonAEFD)
                     .addComponent(buttonAEFND)
                     .addComponent(buttonER))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtnoTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAniadir)
-                            .addComponent(bttNuevo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGrabar)
                             .addComponent(btnRecuperar)
                             .addComponent(btnVerificar))
                         .addGap(23, 23, 23))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(btnTerminal)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNoTerminales)
+                        .addGap(1, 1, 1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnAniadir)
+                                    .addComponent(bttNuevo))
+                                .addGap(91, 91, 91))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(48, 48, 48)
+                                .addComponent(btnTerminal)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnNoTerminales)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -249,18 +259,85 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonERActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
-
-
+        File crearArchivo;
+        FileWriter escribirDatos;
+        BufferedWriter bw;
+        PrintWriter wr;
+        
+        try {
+            crearArchivo=new File("Gramatica Guardadas.txt");
+            escribirDatos= new FileWriter(crearArchivo);
+            bw= new BufferedWriter(escribirDatos);
+            wr= new PrintWriter(crearArchivo);
+            
+            wr.write(txtMain.getText());
+            wr.append("");
+            
+            wr.close();
+            bw.close();
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
+        }
     }//GEN-LAST:event_btnGrabarActionPerformed
 
     private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
-
+        reiniciar();
+        String direccion = "Gramatica Guardadas.txt";
+        File archivo = new File(direccion);
+        //System.out.println(archivo.getAbsolutePath());
+        
+        try{
+            BufferedReader leer = new BufferedReader(new FileReader(archivo));
+            String linea = leer.readLine();
+            String aux="";
+            while(linea!= null){
+                String aux2[]= linea.split("---->");
+                if(aux2.length>1){
+                    anadir(aux2[0],aux2[1]);
+                }
+                aux+= linea+"\n";
+                linea = leer.readLine();
+            }
+            txtMain.setText(aux);
+        }
+        catch (IOException e){
+            JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
+        }
     }//GEN-LAST:event_btnRecuperarActionPerformed
 
+    private void reiniciar() {
+        // Borra todos los datos actuales
+        bfIn = new StringBuffer();
+        txtMain.setText(bfIn.toString());
+        txtTerminales.setText("");
+        txtnoTerminal.setText("");
+        listaPrincipal = new HashMap<>();
+        terminales.clear();
+        noTerminales.clear();
+    }
+    
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-        // TODO add your handling code here:
-        //comprobar sintaxis
-
+        obtenerNoTerminales();
+        obtenerTerminales();         
+        boolean res = true;
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {            
+            String key = entrySet.getKey();
+            res = verificarNT(key);
+            if(!res)
+            {
+                ArrayList<String> value = entrySet.getValue();
+                res = verificarTNT(value);
+                if(!res){
+                    break;
+                }                
+            }
+            else{
+                break;
+            }
+        }  
+        if(res)
+            JOptionPane.showMessageDialog(null,"esta bn");
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void txtnoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnoTerminalActionPerformed
@@ -274,15 +351,28 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAniadirActionPerformed
 
     private void bttNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttNuevoActionPerformed
-        // Borra todos los datos actuales
+        bfIn = new StringBuffer();
+        txtMain.setText(bfIn.toString());
+        txtTerminales.setText("");
+        txtnoTerminal.setText("");
+        listaPrincipal = new HashMap<>();
+        terminales.clear();
+        noTerminales.clear();
     }//GEN-LAST:event_bttNuevoActionPerformed
 
     private void btnTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminalActionPerformed
-        // 
+        obtenerTerminales();
+        ventanaTerminales ven1 = new ventanaTerminales(terminales);
+        ven1.setVisible(true);
     }//GEN-LAST:event_btnTerminalActionPerformed
 
     private void btnNoTerminalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoTerminalesActionPerformed
-        // TODO add your handling code here:
+        obtenerNoTerminales();
+
+        ventanaNoTerminales ven = new ventanaNoTerminales(noTerminales);
+        ven.setVisible(true);
+
+        System.out.println(listaPrincipal.get("T"));
     }//GEN-LAST:event_btnNoTerminalesActionPerformed
 
     private void buttonAEFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAEFDActionPerformed
@@ -373,6 +463,113 @@ public class GREditor extends javax.swing.JFrame {
             }
         }}
         
+        return res;
+    }
+    
+     private void obtenerNoTerminales() 
+     {
+        //obtener Keys del hashmap
+        noTerminales = new ArrayList<>(listaPrincipal.keySet());
+        for (int i = 0; i < noTerminales.size(); i++) 
+        {
+            if(noTerminales.get(i).equals(epsilon+""))
+                noTerminales.remove(i);
+        }
+    }
+    
+    private void obtenerTerminales() {
+        //obtenerNoTerminales();//con esto generamos los no terminales y ya no tomamos encuenta para los terminales
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) 
+        {
+            //String key = entrySet.getKey();
+            ArrayList<String> value = entrySet.getValue();
+            for (String e : value)//e contiene la cadena de texto 
+            {
+                String [] aux;
+                boolean res=false;
+                e = e.trim();//elimina espacios adelante y atras de la cadena 
+                aux=e.split(" ");
+                for (String sa : aux)//sa es elemento de aux, aux=[S,a,s,B] ---> sa=S 
+                {
+                    res=noTerminales.contains(sa);//
+                    if(!res)
+                    {
+                        res= terminales.contains(sa);
+                        if(!res)
+                        {                            
+                            if(esGramaticaMinuscula(sa)){
+                                terminales.add(sa);
+                            }                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean esGramaticaMinuscula(String ss)
+    {
+        boolean res=false;
+        for(int i =0; i<ss.length();i++) //
+        {
+            if(!Character.isUpperCase(ss.charAt(i)) || ss.charAt(i)== epsilon)
+            {    
+                if(Character.isLowerCase(ss.charAt(i))||ss.charAt(i)== epsilon||ss.charAt(i)== ' '||ss.charAt(i)=='*'||ss.charAt(i)=='+'||ss.charAt(i)=='?')
+                {
+                    res = true;
+                }
+            }
+          }    
+        return res;
+    }
+    
+    private boolean verificarNT(String l) 
+   {
+        boolean res = noTerminales.contains(l);
+        boolean res1= contieneMayusMinus(l);
+        if((!res)&&(res1))
+            JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
+         return res; 
+    }
+    
+    private boolean contieneMayusMinus(String l) 
+    {       
+        boolean res=false;
+        for(int i =0; i<l.length();i++)
+        {
+            if((Character.isUpperCase(l.charAt(i))&&(l.charAt(i)!= 'E')||(Character.isLowerCase(l.charAt(i))))) 
+                res = true;
+        }    
+        return res;
+    }
+    
+    private boolean verificarTNT(ArrayList<String> value) 
+    {
+        obtenerTerminales();
+        boolean res = true;
+        for (String e : value) 
+        {
+            e=e.trim();
+            String aux[] = e.split(" ");            
+            for (String e2 : aux) 
+            {
+                    res = terminales.contains(e2);
+                    if(!res)
+                    {
+                        res = noTerminales.contains(e2);
+                        if(!res)
+                        {
+                            res = false;
+                            JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
+                            break;
+                        }                
+                    }
+            }
+            if(!res)
+            {
+                break;
+            }
+        }        
         return res;
     }
 
