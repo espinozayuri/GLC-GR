@@ -8,6 +8,8 @@ package Interface;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -284,7 +286,13 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNoTerminalesActionPerformed
 
     private void buttonAEFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAEFDActionPerformed
-        // TODO add your handling code here:
+        ShowAFD nuevo = new ShowAFD(listaPrincipal, noTerminales, terminales);
+        System.out.println("se pulso AEFD");
+        try {
+            nuevo.View();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GREditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonAEFDActionPerformed
 
     /**
