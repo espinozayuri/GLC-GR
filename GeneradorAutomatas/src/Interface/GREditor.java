@@ -376,7 +376,7 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNoTerminalesActionPerformed
 
     private void buttonAEFDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAEFDActionPerformed
-        ShowAFD nuevo = new ShowAFD(listaPrincipal, noTerminales, terminales);
+        ShowAFD nuevo = new ShowAFD(listaPrincipal);
         System.out.println("se pulso AEFD");
         try {
             nuevo.View();

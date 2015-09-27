@@ -20,28 +20,40 @@ import javax.swing.JPanel;
 public class ShowAFD extends JPanel {
     //valores key como Noterminales y su AL de terminales
     HashMap<String, ArrayList<String>> listaPrincipal;
-    ArrayList<String> noTerminales;
-    ArrayList<String> terminales;
+    Grafo grafo;
     int x,y;
     private Object g2d;
-    public ShowAFD(HashMap<String, ArrayList<String>> listaPri,
-            ArrayList<String> noTerm, ArrayList<String> term) {
+    public ShowAFD(HashMap<String, ArrayList<String>> listaPri) {
         this.listaPrincipal = listaPri;
-        this.noTerminales = noTerm;
-        this.terminales = term;
-        x = 50;
+        grafo = new Grafo();
+        x = 0;
         y = 50;
     }
     
     void crearAtomata(Graphics g){
         for (String noTerminal : listaPrincipal.keySet()) {
-            g.fillOval(x, y, 30, 30);
-            x+=50;
-            y+=50;
-            System.out.println("->"+noTerminal);
+            grafo.agregarVertice(noTerminal);
+        }
+        crearPosiciones();
+        dibujarAutomata(g);
+    }
+    
+    void dibujarAutomata(Graphics g){
+        for (Vertice ver: grafo.getVertices()) {
+            ver.drawVertice(g);
         }
     }
     
+    void crearPosiciones(){
+        for (Vertice ver: grafo.getVertices()) {
+            x+=125;
+            if (x>=350) {
+                x=125;
+                y+=125;
+            }
+            ver.setPosicion(new Posicion(x, y, ver.getNombre()));
+        }
+    }
     
     private void moveBall() {
 	x = x + 1;
@@ -55,12 +67,14 @@ public class ShowAFD extends JPanel {
 	Graphics2D g2d = (Graphics2D) g;
 	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
             RenderingHints.VALUE_ANTIALIAS_ON);
+        x=0;
+        y=50;
         crearAtomata(g);
     }
 
     public void View() throws InterruptedException{
         JFrame frame = new JFrame("Dibujar Grafos");
-        ShowAFD grafica = new ShowAFD(listaPrincipal, noTerminales, terminales);
+        ShowAFD grafica = new ShowAFD(listaPrincipal);
 	frame.add(grafica);
 	frame.setSize(400, 400);
 	frame.setVisible(true);
