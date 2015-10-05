@@ -72,8 +72,9 @@ public class Grafo {
         return vertices.get(index);
     }
     
-    public Boolean agregarArista(String inicio, String destino){
+    public Boolean agregarArista(String inicio, String destino, String nombre){
         Vertice ini = new Vertice(inicio);
+        ini.setNombre(nombre);
         Vertice dest = new Vertice(destino);
         int i = vertices.indexOf(ini);
         if (i != -1) {

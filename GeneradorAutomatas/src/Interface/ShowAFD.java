@@ -55,6 +55,16 @@ public class ShowAFD extends JPanel {
         }
     }
     
+    void crearAristas(){
+        listaPrincipal.forEach(null);
+    }
+    
+    void crearArista(String clave, ArrayList<String> vertice){
+        String terminal = vertice.get(0);
+        String Destino = vertice.get(1);
+        grafo.agregarArista(clave, Destino, terminal);
+    }
+    
     private void moveBall() {
 	x = x + 1;
 	y = y + 1;
@@ -80,6 +90,7 @@ public class ShowAFD extends JPanel {
 	frame.setVisible(true);
 	//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         crearAtomata(grafica.getGraphics());
+        crearAristas();
         Thread.sleep(10);
         grafica.repaint();
         
