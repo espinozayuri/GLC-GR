@@ -56,16 +56,18 @@ public class ParserGenerator {
            
             for(String terminal : e.getValue()){
                 terminales(terminal);
+                 String letra = e.getKey()+String.valueOf(i);
                  //documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> simbol '"+Terminales+"'"+"\n");
                if(Terminales.contains("E")){
                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
+                  
                }
                else
-                if(Terminales.contains(((e.getKey()+String.valueOf(i))+"*"))){
+                if(Terminales.contains(letra+"*")){
                     documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many P"+e.getKey()+"\n");
                 }else {
-                        if(Terminales.contains("A+")){
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many1 PA"+"\n");
+                        if(Terminales.contains("T+")){
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> many1 P"+e.getKey()+String.valueOf(i)+"\n");
                             }else {if(Terminales.contains("A?")){
                     documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> option PA"+"\n");
                             }
