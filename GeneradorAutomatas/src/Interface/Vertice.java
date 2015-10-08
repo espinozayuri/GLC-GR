@@ -18,6 +18,7 @@ import java.util.Objects;
 
 public class Vertice{
     private String nombre;
+    public String camino;
     private Posicion posicion;
     private List<Vertice> aristas;
     private Line2D linea;

@@ -58,12 +58,26 @@ public class Grafo {
     public void DibujarAristas(Graphics g){
         Posicion posi;
         int radio = 25;
-        int pos;
         for(Vertice vertice : vertices){
             for(Vertice i : vertice.getAristas()){
-                g.drawLine(vertice.getPosicion().posx+radio,
+                if (vertice.equals(i)) {
+                    g.drawArc(vertice.getPosicion().posx+5,
+                        vertice.getPosicion().posy-15, 
+                    40,60, 
+                    -180, -180);
+                g.drawString(i.camino,i.getPosicion().posx+radio,
+                        i.getPosicion().posy-15);
+                }
+                else{
+                    g.drawLine(vertice.getPosicion().posx+radio,
                         vertice.getPosicion().posy+radio, 
-        i.getPosicion().posx+radio, i.getPosicion().posy+radio);
+                    i.getPosicion().posx+radio, i.getPosicion().posy+radio);
+                    g.drawString(i.camino,vertice.getPosicion().posx+radio,
+                        vertice.getPosicion().posy-15);
+                    g.drawString(i.camino,i.getPosicion().posx+radio,
+                        i.getPosicion().posy-15);
+                }
+                
                 //pos = vertices.indexOf(new Vertice(i.getNombre()));
                 //posi = getVertice(pos).getPosicion();       
                 //vertice.drawArista(g, posi);
@@ -81,8 +95,10 @@ public class Grafo {
         int i = vertices.indexOf(ini);
         if (i != -1) {
             ini = vertices.get(i);
+            ini.camino = nombre;
             i = vertices.indexOf(dest);
             dest = vertices.get(i);
+            dest.camino = nombre;
             vertices.get(i).agregarArista(dest);
             i = vertices.indexOf(dest);
             vertices.get(i).agregarArista(ini);

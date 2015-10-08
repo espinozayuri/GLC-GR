@@ -20,11 +20,13 @@ import javax.swing.JPanel;
 public class ShowAFD extends JPanel {
     //valores key como Noterminales y su AL de terminales
     HashMap<String, ArrayList<String>> listaPrincipal;
+    ArrayList<String> circulares;
     Grafo grafo;
     int x,y;
     private Object g2d;
     public ShowAFD(HashMap<String, ArrayList<String>> listaPri) {
         this.listaPrincipal = listaPri;
+        circulares = new ArrayList<String>();
         grafo = new Grafo();
         x = 0;
         y = 50;
@@ -65,6 +67,7 @@ public class ShowAFD extends JPanel {
     
     void crearArista(String clave, ArrayList<String> vertice){
         String[] terminales = vertice.get(0).split(" ");
+        
         grafo.agregarArista(clave, terminales[1], terminales[0]);
     }
     
