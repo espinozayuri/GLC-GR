@@ -53,46 +53,39 @@ public class ParserGenerator {
         documento = new ArrayList<String>();
         for(Entry<String, ArrayList<String>> e : listaT.entrySet()) {
             int i =1;
-           
             for(String terminal : e.getValue()){
                 terminales(terminal);
-                 String letra = e.getKey()+String.valueOf(i);
-                 //documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> simbol '"+Terminales+"'"+"\n");
-               if(Terminales.contains("E")){
-                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
-                  
-               }
-               else
-                if(Terminales.contains(letra+"*")){
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many P"+e.getKey()+"\n");
-                }else {
-                        if(Terminales.contains("T+")){
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> many1 P"+e.getKey()+String.valueOf(i)+"\n");
-                            }else {if(Terminales.contains("A?")){
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> option PA"+"\n");
-                            }
-                            else{ if(Terminales.size() >1){
-                                documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'"+"\n");}
-                            
-                            else
-                              documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> symbol '"+Terminales+"'"+"\n");}
+                if(Terminales.contains("E")){
+                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+cola(terminal)+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
+                }else{   
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+cola(terminal)+")<$> "+AnalizadorLadoDerecho(listaT)+"\n");
+                }            
                 i++;
             System.out.println(Terminales);
             }
         }
         System.out.println("lista "+listaT);
-            }}
         return documento;
     }
     
     public String cabeza(int i,String key){
-        String res="";
+        String resp="";
         if(i==1){
-            res="P"+key+"=(";
+            resp="P"+key+"=(";
         }else{
-            res="<|>(";
+            resp="<|>(";
         }
-        return res;
+        return resp;
+    }
+    
+    public String cola(String terminal){
+        String resp="";
+        int i=1;
+        
+        Abecedario aplicacion = new Abecedario(); 
+        resp=aplicacion.imprimirUno(i);
+        
+        return resp;
     }
     
     public String funcion(String terminal){
@@ -106,7 +99,7 @@ public class ParserGenerator {
             }    
         } 
         Abecedario aplicacion = new Abecedario();  
-        resp="\\"+aplicacion.imprimir(i);
+        resp="\\"+aplicacion.imprimirTodo(i);
         return resp;
     }
     
@@ -126,12 +119,11 @@ public class ParserGenerator {
                 }
             }
         }
-        System.out.println("ter "+Terminales);
+        //System.out.println("ter "+Terminales);
         return Terminales;
     }
    
-    private boolean esGramaticaMinuscula(String ss)
-    {
+    private boolean esGramaticaMinuscula(String ss){
         boolean res=false;
         for(int i =0; i<ss.length();i++) //
         {
@@ -144,5 +136,38 @@ public class ParserGenerator {
             }
           }    
         return res;
+    }
+    
+    private String AnalizadorLadoDerecho(HashMap<String, ArrayList<String>> listaT){
+        String resp = "";
+        for(Entry<String, ArrayList<String>> e : listaT.entrySet()) {
+            int i =1;
+            for(String terminal : e.getValue()){
+                
+                
+                
+                
+            i++;    
+            }
+        }
+        
+/*
+        String letra = e.getKey()+String.valueOf(i);
+        if(Terminales.contains(letra+"*")){
+            token '"+Terminales+"'<*> many P"+e.getKey()+"\n");
+        }else {
+            if(Terminales.contains("T+")){
+                many1 P"+e.getKey()+String.valueOf(i)+"\n");
+            }else{
+                if(Terminales.contains("A?")){
+                    token '"+Terminales+"'<*> option PA"+"\n");
+                }else{ 
+                    if(Terminales.size() >1){
+                        token '"+Terminales+"'"+"\n");}
+                    else
+                        symbol '"+Terminales+"'"+"\n");}
+*/
+
+        return resp;
     }
 }

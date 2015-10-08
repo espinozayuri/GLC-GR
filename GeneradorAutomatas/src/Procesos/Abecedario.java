@@ -22,7 +22,7 @@ public class Abecedario
         }
     } 
     
-    public String imprimir(int valor){ 
+    public String imprimirTodo(int valor){ 
         this.num=valor;
         String resp = ""; 
         for(int i = 0; i < num; i++) 
@@ -31,11 +31,16 @@ public class Abecedario
         } 
         return resp; 
     } 
+    public String imprimirUno(int valor){ 
+        this.num=valor-1; 
+        return abecedario[num]+" "; 
+    } 
 
     public static void main(String args[]) 
     { 
         Abecedario aplicacion = new Abecedario();  
-        System.out.println("Orden: " + aplicacion.imprimir(3)); 
+        System.out.println("Orden: " + aplicacion.imprimirTodo(22)); 
+        System.out.println("Orden: " + aplicacion.imprimirUno(22));
         System.exit(0); 
     } 
 } 
