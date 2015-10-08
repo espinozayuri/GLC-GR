@@ -56,12 +56,12 @@ public class ParserGenerator {
             for(String terminal : e.getValue()){
                 terminales(terminal);
                 if(Terminales.contains("E")){
-                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+cola(terminal)+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
+                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
                 }else{   
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+cola(terminal)+")<$> "+AnalizadorLadoDerecho(listaT)+"\n");
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> "+AnalizadorLadoDerecho(terminal)+"\n");
                 }            
                 i++;
-            System.out.println(Terminales);
+            System.out.println(terminal);
             }
         }
         System.out.println("lista "+listaT);
@@ -78,7 +78,7 @@ public class ParserGenerator {
         return resp;
     }
     
-    public String cola(String terminal){
+    public String calculoLambda(String terminal){
         String resp="";
         int i=1;
         
@@ -138,18 +138,16 @@ public class ParserGenerator {
         return res;
     }
     
-    private String AnalizadorLadoDerecho(HashMap<String, ArrayList<String>> listaT){
+    private String AnalizadorLadoDerecho(String terminal){
         String resp = "";
-        for(Entry<String, ArrayList<String>> e : listaT.entrySet()) {
-            int i =1;
-            for(String terminal : e.getValue()){
-                
-                
-                
-                
-            i++;    
-            }
-        }
+        for(int i=0; i<terminal.length(); i++){
+            char act= terminal.charAt(i);
+            System.out.println("este es mi elemento "+act);
+            if(terminal){}
+            
+        
+
+  
         
 /*
         String letra = e.getKey()+String.valueOf(i);
@@ -167,7 +165,7 @@ public class ParserGenerator {
                     else
                         symbol '"+Terminales+"'"+"\n");}
 */
-
+                }
         return resp;
     }
 }
