@@ -60,29 +60,28 @@ public class Grafo {
         int radio = 25;
         for(Vertice vertice : vertices){
             for(Vertice i : vertice.getAristas()){
-                if (vertice.equals(i)) {
-                    g.drawArc(vertice.getPosicion().posx+5,
-                        vertice.getPosicion().posy-15, 
-                    40,60, 
-                    -180, -180);
+                g.drawLine(vertice.getPosicion().posx+radio,
+                vertice.getPosicion().posy+radio, 
+                i.getPosicion().posx+radio, i.getPosicion().posy+radio);
                 g.drawString(i.camino,i.getPosicion().posx+radio,
-                        i.getPosicion().posy-15);
-                }
-                else{
-                    g.drawLine(vertice.getPosicion().posx+radio,
-                        vertice.getPosicion().posy+radio, 
-                    i.getPosicion().posx+radio, i.getPosicion().posy+radio);
-                    g.drawString(i.camino,vertice.getPosicion().posx+radio,
-                        vertice.getPosicion().posy-15);
-                    g.drawString(i.camino,i.getPosicion().posx+radio,
-                        i.getPosicion().posy-15);
-                }
-                
-                //pos = vertices.indexOf(new Vertice(i.getNombre()));
-                //posi = getVertice(pos).getPosicion();       
-                //vertice.drawArista(g, posi);
+                i.getPosicion().posy-15);
             }
         }
+    }
+    
+    public void dibujarCirculares(Graphics g, ArrayList<String> circulares){
+        String[] cadena;
+        Vertice ver;
+        int index;
+        for (String item:circulares) {
+            cadena = item.split("->");
+            index = vertices.indexOf(new Vertice(cadena[0]));
+            ver = vertices.get(index);
+            g.drawArc(ver.getPosicion().posx+5,ver.getPosicion().posy-15, 
+                    40,60, -180, -180);
+            g.drawString(ver.camino,ver.getPosicion().posx+25,
+                    ver.getPosicion().posy-15);
+        }        
     }
     
     public Vertice getVertice(int index){

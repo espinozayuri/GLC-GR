@@ -143,7 +143,7 @@ public class ParserGenerator {
         for(int i=0; i<terminal.length(); i++){
             char act= terminal.charAt(i);
             System.out.println("este es mi elemento "+act);
-            if(terminal){}
+            //if(terminal){}
             
         
 

@@ -66,9 +66,15 @@ public class ShowAFD extends JPanel {
     }
     
     void crearArista(String clave, ArrayList<String> vertice){
-        String[] terminales = vertice.get(0).split(" ");
-        
-        grafo.agregarArista(clave, terminales[1], terminales[0]);
+        for (String item: vertice) {
+            if (!item.contains(" ")) {
+                circulares.add(clave+"->"+item);
+            }
+            else{
+                String[] terminales = item.split(" ");    
+                grafo.agregarArista(clave, terminales[1], terminales[0]);
+            }
+        }
     }
     
     private void moveBall() {
@@ -88,6 +94,7 @@ public class ShowAFD extends JPanel {
         crearAtomata(g);
         crearAristas();
         grafo.DibujarAristas(g);
+        grafo.dibujarCirculares(g, circulares);
     }
 
     public void View() throws InterruptedException{
