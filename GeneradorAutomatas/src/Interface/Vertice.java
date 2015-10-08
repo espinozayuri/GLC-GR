@@ -98,51 +98,13 @@ public class Vertice{
         g.drawString(nombre, posicion.posx, posicion.posy);
     }
 
-    public Line2D getLinea() {
-        return linea;
-    }
-    
-    public Line2D crearLinea(Posicion pos){
-        int centro = posicion.radio;
-        linea = new Line2D.Float(posicion.posx+centro, posicion.posy+centro, 
-                pos.posx+centro, pos.posy+centro);
-        return linea;
-    }
-    
-    public Boolean existeCoalision(Line2D linea2){
-        return linea2.intersectsLine(linea);
-    }
-    
-    
     public void drawArista(Graphics g, Posicion pos){
         int centro = posicion.radio;
-        linea = new Line2D.Float(posicion.posx+centro, posicion.posy+centro, 
-                pos.posx+centro, pos.posy+centro);
         g.drawLine(posicion.posx+centro, posicion.posy+centro, 
                 pos.posx+centro, pos.posy+centro);
         //Line2D line1 = new Line2D.Float(100, 100, 200, 200);
         //Line2D line2 = new Line2D.Float(150, 150, 150, 200);
         //boolean result = line2.intersectsLine(line1);
-    }
-    
-    public void updatePositiondrawVertice(Graphics g){
-        posicion.posx+=10;
-        posicion.posy+=10;
-        g.fillOval(posicion.posx, posicion.posy, 
-                posicion.radio*2, posicion.radio*2);
-        g.drawString(nombre, posicion.posx, posicion.posy);
-    }
-    
-    public Boolean esCompleto(Vertice v){
-        if (aristas.contains(v)) {
-            return true;
-        }
-        else{
-            if (v.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
 

@@ -56,13 +56,16 @@ public class ShowAFD extends JPanel {
     }
     
     void crearAristas(){
-        listaPrincipal.forEach(null);
+        ArrayList<String> value;
+        for (String key: listaPrincipal.keySet()) {
+             value = listaPrincipal.get(key);
+             crearArista(key, value);
+        }
     }
     
     void crearArista(String clave, ArrayList<String> vertice){
-        String terminal = vertice.get(0);
-        String Destino = vertice.get(1);
-        grafo.agregarArista(clave, Destino, terminal);
+        String[] terminales = vertice.get(0).split(" ");
+        grafo.agregarArista(clave, terminales[1], terminales[0]);
     }
     
     private void moveBall() {
@@ -80,6 +83,8 @@ public class ShowAFD extends JPanel {
         x=0;
         y=50;
         crearAtomata(g);
+        crearAristas();
+        grafo.DibujarAristas(g);
     }
 
     public void View() throws InterruptedException{
@@ -91,6 +96,7 @@ public class ShowAFD extends JPanel {
 	//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         crearAtomata(grafica.getGraphics());
         crearAristas();
+        grafo.DibujarAristas(grafica.getGraphics());
         Thread.sleep(10);
         grafica.repaint();
         

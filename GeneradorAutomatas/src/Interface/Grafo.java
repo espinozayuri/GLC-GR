@@ -57,13 +57,16 @@ public class Grafo {
         
     public void DibujarAristas(Graphics g){
         Posicion posi;
-        Line2D linea1, linea2;
+        int radio = 25;
         int pos;
         for(Vertice vertice : vertices){
             for(Vertice i : vertice.getAristas()){
-                pos = vertices.indexOf(new Vertice(i.getNombre()));
-                posi = getVertice(pos).getPosicion();       
-                vertice.drawArista(g, posi);
+                g.drawLine(vertice.getPosicion().posx+radio,
+                        vertice.getPosicion().posy+radio, 
+        i.getPosicion().posx+radio, i.getPosicion().posy+radio);
+                //pos = vertices.indexOf(new Vertice(i.getNombre()));
+                //posi = getVertice(pos).getPosicion();       
+                //vertice.drawArista(g, posi);
             }
         }
     }
@@ -74,10 +77,12 @@ public class Grafo {
     
     public Boolean agregarArista(String inicio, String destino, String nombre){
         Vertice ini = new Vertice(inicio);
-        ini.setNombre(nombre);
         Vertice dest = new Vertice(destino);
         int i = vertices.indexOf(ini);
         if (i != -1) {
+            ini = vertices.get(i);
+            i = vertices.indexOf(dest);
+            dest = vertices.get(i);
             vertices.get(i).agregarArista(dest);
             i = vertices.indexOf(dest);
             vertices.get(i).agregarArista(ini);
