@@ -33,7 +33,7 @@ public class GREditor extends javax.swing.JFrame {
     ArrayList<String> noTerminales;
     ArrayList<String> terminales;
     StringBuffer bfIn;
-    char epsilon='E';
+    char epsilon = 'E';
 
     public GREditor() {
         initComponents();
@@ -71,6 +71,7 @@ public class GREditor extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtMain = new javax.swing.JTextPane();
+        TxtCorrector = new javax.swing.JLabel();
 
         buttonAEFD.setText("AEFD");
         buttonAEFD.addActionListener(new java.awt.event.ActionListener() {
@@ -160,6 +161,8 @@ public class GREditor extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(txtMain);
 
+        TxtCorrector.setText(" ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,23 +189,25 @@ public class GREditor extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(22, 22, 22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(btnTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnAniadir)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bttNuevo))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(btnVerificar)
-                                        .addComponent(btnNoTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addComponent(btnNoTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(TxtCorrector, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAniadir)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bttNuevo))))))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnGrabar)
                             .addGap(40, 40, 40)
                             .addComponent(btnRecuperar))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +227,8 @@ public class GREditor extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtnoTerminal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtTerminales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtCorrector))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
@@ -234,17 +240,15 @@ public class GREditor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnAniadir)
-                                    .addComponent(bttNuevo))
-                                .addGap(91, 91, 91))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAniadir)
+                                .addComponent(bttNuevo))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addComponent(btnTerminal)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnNoTerminales)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(107, Short.MAX_VALUE))))
         );
 
         pack();
@@ -263,21 +267,21 @@ public class GREditor extends javax.swing.JFrame {
         FileWriter escribirDatos;
         BufferedWriter bw;
         PrintWriter wr;
-        
+
         try {
-            crearArchivo=new File("Gramatica Guardadas.txt");
-            escribirDatos= new FileWriter(crearArchivo);
-            bw= new BufferedWriter(escribirDatos);
-            wr= new PrintWriter(crearArchivo);
-            
+            crearArchivo = new File("Gramatica Guardadas.txt");
+            escribirDatos = new FileWriter(crearArchivo);
+            bw = new BufferedWriter(escribirDatos);
+            wr = new PrintWriter(crearArchivo);
+
             wr.write(txtMain.getText());
             wr.append("");
-            
+
             wr.close();
             bw.close();
-            
-        } catch (Exception e){
-            JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + e);
         }
     }//GEN-LAST:event_btnGrabarActionPerformed
 
@@ -286,23 +290,22 @@ public class GREditor extends javax.swing.JFrame {
         String direccion = "Gramatica Guardadas.txt";
         File archivo = new File(direccion);
         //System.out.println(archivo.getAbsolutePath());
-        
-        try{
+
+        try {
             BufferedReader leer = new BufferedReader(new FileReader(archivo));
             String linea = leer.readLine();
-            String aux="";
-            while(linea!= null){
-                String aux2[]= linea.split("---->");
-                if(aux2.length>1){
-                    anadir(aux2[0],aux2[1]);
+            String aux = "";
+            while (linea != null) {
+                String aux2[] = linea.split("---->");
+                if (aux2.length > 1) {
+                    anadir(aux2[0], aux2[1]);
                 }
-                aux+= linea+"\n";
+                aux += linea + "\n";
                 linea = leer.readLine();
             }
             txtMain.setText(aux);
-        }
-        catch (IOException e){
-            JOptionPane.showMessageDialog(null,"Ha ocurrido un error "+ e);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error " + e);
         }
     }//GEN-LAST:event_btnRecuperarActionPerformed
 
@@ -316,28 +319,27 @@ public class GREditor extends javax.swing.JFrame {
         terminales.clear();
         noTerminales.clear();
     }
-    
+
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         obtenerNoTerminales();
-        obtenerTerminales();         
+        obtenerTerminales();
         boolean res = true;
-        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {            
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {
             String key = entrySet.getKey();
             res = verificarNT(key);
-            if(!res)
-            {
+            if (!res) {
                 ArrayList<String> value = entrySet.getValue();
                 res = verificarTNT(value);
-                if(!res){
+                if (!res) {
                     break;
-                }                
-            }
-            else{
+                }
+            } else {
                 break;
             }
-        }  
-        if(res)
-            JOptionPane.showMessageDialog(null,"esta bn");
+        }
+        if (res) {
+            JOptionPane.showMessageDialog(null, "esta bn");
+        }
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void txtnoTerminalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnoTerminalActionPerformed
@@ -345,9 +347,10 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnoTerminalActionPerformed
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-        String noterminalAux = txtnoTerminal.getText();
-        String cadena = txtTerminales.getText();
-        anadir(noterminalAux, cadena);
+        String noterminalAux = txtnoTerminal.getText().trim();
+        String cadena = txtTerminales.getText().trim();
+        if (verificarRegla(noterminalAux, cadena))  anadir(noterminalAux, cadena);
+        
     }//GEN-LAST:event_btnAniadirActionPerformed
 
     private void bttNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttNuevoActionPerformed
@@ -450,130 +453,118 @@ public class GREditor extends javax.swing.JFrame {
 
     private boolean duplicado(String nt, String tnt) {
         boolean res = false;
-        if(!listaPrincipal.isEmpty()){
-        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {
-            String key = entrySet.getKey();
-            if (key.equals(nt)) {
-                ArrayList<String> value = entrySet.getValue();
-                for (String e : value) {
-                    if (e.equals(tnt)) {
-                        res = true;
+        if (!listaPrincipal.isEmpty()) {
+            for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {
+                String key = entrySet.getKey();
+                if (key.equals(nt)) {
+                    ArrayList<String> value = entrySet.getValue();
+                    for (String e : value) {
+                        if (e.equals(tnt)) {
+                            res = true;
+                        }
                     }
                 }
             }
-        }}
-        
+        }
+
         return res;
     }
-    
-     private void obtenerNoTerminales() 
-     {
+
+    private void obtenerNoTerminales() {
         //obtener Keys del hashmap
         noTerminales = new ArrayList<>(listaPrincipal.keySet());
-        for (int i = 0; i < noTerminales.size(); i++) 
-        {
-            if(noTerminales.get(i).equals(epsilon+""))
+        for (int i = 0; i < noTerminales.size(); i++) {
+            if (noTerminales.get(i).equals(epsilon + "")) {
                 noTerminales.remove(i);
+            }
         }
     }
-    
+
     private void obtenerTerminales() {
         //obtenerNoTerminales();//con esto generamos los no terminales y ya no tomamos encuenta para los terminales
-        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) 
-        {
+        for (Map.Entry<String, ArrayList<String>> entrySet : listaPrincipal.entrySet()) {
             //String key = entrySet.getKey();
             ArrayList<String> value = entrySet.getValue();
             for (String e : value)//e contiene la cadena de texto 
             {
-                String [] aux;
-                boolean res=false;
+                String[] aux;
+                boolean res = false;
                 e = e.trim();//elimina espacios adelante y atras de la cadena 
-                aux=e.split(" ");
+                aux = e.split(" ");
                 for (String sa : aux)//sa es elemento de aux, aux=[S,a,s,B] ---> sa=S 
                 {
-                    res=noTerminales.contains(sa);//
-                    if(!res)
-                    {
-                        res= terminales.contains(sa);
-                        if(!res)
-                        {                            
-                            if(esGramaticaMinuscula(sa)){
+                    res = noTerminales.contains(sa);//
+                    if (!res) {
+                        res = terminales.contains(sa);
+                        if (!res) {
+                            if (esGramaticaMinuscula(sa)) {
                                 terminales.add(sa);
-                            }                            
+                            }
                         }
                     }
                 }
             }
         }
     }
-    
-    private boolean esGramaticaMinuscula(String ss)
-    {
-        boolean res=false;
-        for(int i =0; i<ss.length();i++) //
+
+    private boolean esGramaticaMinuscula(String ss) {
+        boolean res = false;
+        for (int i = 0; i < ss.length(); i++) //
         {
-            if(!Character.isUpperCase(ss.charAt(i)) || ss.charAt(i)== epsilon)
-            {    
-                if(Character.isLowerCase(ss.charAt(i))||ss.charAt(i)== epsilon||ss.charAt(i)== ' '||ss.charAt(i)=='*'||ss.charAt(i)=='+'||ss.charAt(i)=='?')
-                {
+            if (!Character.isUpperCase(ss.charAt(i)) || ss.charAt(i) == epsilon) {
+                if (Character.isLowerCase(ss.charAt(i)) || ss.charAt(i) == epsilon || ss.charAt(i) == ' ' || ss.charAt(i) == '*' || ss.charAt(i) == '+' || ss.charAt(i) == '?') {
                     res = true;
                 }
             }
-          }    
+        }
         return res;
     }
-    
-    private boolean verificarNT(String l) 
-   {
+
+    private boolean verificarNT(String l) {
         boolean res = noTerminales.contains(l);
-        boolean res1= contieneMayusMinus(l);
-        if((!res)&&(res1))
+        boolean res1 = contieneMayusMinus(l);
+        if ((!res) && (res1)) {
             JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
-         return res; 
-    }
-    
-    private boolean contieneMayusMinus(String l) 
-    {       
-        boolean res=false;
-        for(int i =0; i<l.length();i++)
-        {
-            if((Character.isUpperCase(l.charAt(i))&&(l.charAt(i)!= 'E')||(Character.isLowerCase(l.charAt(i))))) 
-                res = true;
-        }    
+        }
         return res;
     }
-    
-    private boolean verificarTNT(ArrayList<String> value) 
-    {
+
+    private boolean contieneMayusMinus(String l) {
+        boolean res = false;
+        for (int i = 0; i < l.length(); i++) {
+            if ((Character.isUpperCase(l.charAt(i)) && (l.charAt(i) != 'E') || (Character.isLowerCase(l.charAt(i))))) {
+                res = true;
+            }
+        }
+        return res;
+    }
+
+    private boolean verificarTNT(ArrayList<String> value) {
         obtenerTerminales();
         boolean res = true;
-        for (String e : value) 
-        {
-            e=e.trim();
-            String aux[] = e.split(" ");            
-            for (String e2 : aux) 
-            {
-                    res = terminales.contains(e2);
-                    if(!res)
-                    {
-                        res = noTerminales.contains(e2);
-                        if(!res)
-                        {
-                            res = false;
-                            JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
-                            break;
-                        }                
+        for (String e : value) {
+            e = e.trim();
+            String aux[] = e.split(" ");
+            for (String e2 : aux) {
+                res = terminales.contains(e2);
+                if (!res) {
+                    res = noTerminales.contains(e2);
+                    if (!res) {
+                        res = false;
+                        JOptionPane.showMessageDialog(null, "no pertenece a la gramatica");
+                        break;
                     }
+                }
             }
-            if(!res)
-            {
+            if (!res) {
                 break;
             }
-        }        
+        }
         return res;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TxtCorrector;
     private javax.swing.JButton btnAniadir;
     private javax.swing.JButton btnGrabar;
     private javax.swing.JButton btnNoTerminales;
@@ -592,4 +583,60 @@ public class GREditor extends javax.swing.JFrame {
     private javax.swing.JTextField txtTerminales;
     private javax.swing.JTextField txtnoTerminal;
     // End of variables declaration//GEN-END:variables
+
+    private boolean verificarRegla(String noterminalAux, String cadena) {
+        boolean n1 = false;
+        boolean n2 = false;
+        //boolean res= false;
+        String NT = noterminalAux;
+        String T = cadena;
+        if (!NT.isEmpty()) {
+            if (NT.length() == 1) {
+                Character Nn = NT.toCharArray()[0];
+                if (Nn.isUpperCase(Nn) == true && Nn != 'E') {
+                    n1 = true;
+                }
+            }
+        } //hasta aquí comprueba el lado izq
+        //comprueb el lado derecho:
+        if (!T.isEmpty()) {
+            if (T.length() == 1) {
+                Character Nnt = T.toCharArray()[0];
+                if (Nnt.isLowerCase(Nnt) == true) {
+                    n2 = true;
+                } else if (Nnt == 'E') {
+                    n2 = true;
+                }
+            } else { //si el string es mas grande que 'a'
+
+                if (T.contains(" ")) { //si tiene dos elementos
+                    String[] list = T.split(" ");
+                    if (list.length == 2) {
+                        if (esPalabra(list[0]) && Character.isUpperCase(list[1].toCharArray()[0]) || esPalabra(list[1]) && Character.isUpperCase(list[0].toCharArray()[0])) {
+                            n2 = true;
+                        }
+                    }
+                } else {//palabra larga como hola
+                    n2 = esPalabra(T);
+                }
+
+            }
+        }
+
+        if (n1 && n2) {
+            TxtCorrector.setText("/");
+        } else {
+            TxtCorrector.setText("X");
+        }
+        return n1 && n2;
+    }
+
+    private boolean esPalabra(String T) {
+        boolean res = false;
+        char[] chars = T.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            res = Character.isLowerCase(chars[i]);
+        }
+        return res;
+    }
 }
