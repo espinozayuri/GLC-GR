@@ -32,9 +32,20 @@ public class ShowAFD extends JPanel {
         y = 50;
     }
     
+    void DestinoNoTerminal(ArrayList<String> lista){
+        String noTerminal;
+        for (String item : lista) {
+            if (item.contains(" ")) {
+                noTerminal = item.split(" ")[1];
+                grafo.agregarVertice(noTerminal);
+            }
+        }
+    }
+    
     void crearAtomata(Graphics g){
         for (String noTerminal : listaPrincipal.keySet()) {
             grafo.agregarVertice(noTerminal);
+            DestinoNoTerminal(listaPrincipal.get(noTerminal));
         }
         crearPosiciones();
         dibujarAutomata(g);
