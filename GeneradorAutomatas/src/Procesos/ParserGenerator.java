@@ -7,6 +7,7 @@ something to push
 package Procesos;
 
 import Interface.GLCEditor;
+import static java.lang.Math.E;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,19 +53,27 @@ public class ParserGenerator {
         documento = new ArrayList<String>();
         for(Entry<String, ArrayList<String>> e : listaT.entrySet()) {
             int i =1;
+           
             for(String terminal : e.getValue()){
                 terminales(terminal);
                  //documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> simbol '"+Terminales+"'"+"\n");
-                if(Terminales.contains("A*")){
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many1 PA"+"\n");
+               if(Terminales.contains("E")){
+                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
+               }
+               else
+                if(Terminales.contains(((e.getKey()+String.valueOf(i))+"*"))){
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many P"+e.getKey()+"\n");
                 }else {
                         if(Terminales.contains("A+")){
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many PA"+"\n");
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> many1 PA"+"\n");
                             }else {if(Terminales.contains("A?")){
                     documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'<*> option PA"+"\n");
                             }
-                                        else
-                              documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'"+"\n");
+                            else{ if(Terminales.size() >1){
+                                documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> token '"+Terminales+"'"+"\n");}
+                            
+                            else
+                              documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+Terminales+")<$> symbol '"+Terminales+"'"+"\n");}
                 i++;
             System.out.println(Terminales);
             }
