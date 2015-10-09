@@ -22,10 +22,5 @@ public class Posicion{
         this.posx = posx;
         this.posy = posy;
         this.nombre = nombre;
-    }               
-        
-    public void drawArista(Posicion pos1, Posicion pos2, Graphics g){
-        g.drawLine(pos1.posx+radio,pos1.posy+radio, 
-        pos2.posx+radio, pos2.posy+radio);
-    }
+    }         
 }

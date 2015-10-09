@@ -7,7 +7,6 @@ package Interface;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import java.awt.geom.Line2D;
 import java.util.List;
 
 /**
@@ -89,7 +88,7 @@ public class Grafo {
             ver = vertices.get(index);
             g.drawArc(ver.getPosicion().posx+5,ver.getPosicion().posy-15, 
                     40,60, -180, -180);
-            g.drawString(ver.camino,ver.getPosicion().posx+25,
+            g.drawString(cadena[1],ver.getPosicion().posx+25,
                     ver.getPosicion().posy-15);
         }        
     }
