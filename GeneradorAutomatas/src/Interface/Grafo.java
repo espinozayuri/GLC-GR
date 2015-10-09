@@ -54,17 +54,27 @@ public class Grafo {
         }
         return false;
     }
+    
+    public int calculatex(int x1, int x2){
+        return (x1+x2)/2;
+    }
+    
+    public int calculatey(int y1, int y2){
+        return (y1+y2)/2;
+    }
         
     public void DibujarAristas(Graphics g){
         Posicion posi;
+        int x,y;
         int radio = 25;
         for(Vertice vertice : vertices){
             for(Vertice i : vertice.getAristas()){
                 g.drawLine(vertice.getPosicion().posx+radio,
                 vertice.getPosicion().posy+radio, 
                 i.getPosicion().posx+radio, i.getPosicion().posy+radio);
-                g.drawString(i.camino,i.getPosicion().posx+radio,
-                i.getPosicion().posy-15);
+                x = calculatex(vertice.getPosicion().posx, i.getPosicion().posx);
+                y = calculatey(vertice.getPosicion().posy, i.getPosicion().posy);
+                g.drawString(i.camino,x,y);
             }
         }
     }

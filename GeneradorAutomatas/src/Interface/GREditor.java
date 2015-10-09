@@ -255,7 +255,12 @@ public class GREditor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAEFNDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAEFNDActionPerformed
-        // TODO add your handling code here:
+        showAFND automatasNoDeterministicos = new showAFND(listaPrincipal);
+        try {
+            automatasNoDeterministicos.View();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GREditor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_buttonAEFNDActionPerformed
 
     private void buttonERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonERActionPerformed
