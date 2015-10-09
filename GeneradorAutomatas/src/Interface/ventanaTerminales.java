@@ -74,7 +74,7 @@ public class ventanaTerminales extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextPaneTerminales);
 
         jLabel1.setText("Terminales: ");
-
+        setBounds(700, 20, 435, 345);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(

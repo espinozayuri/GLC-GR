@@ -76,7 +76,7 @@ public class ventanaNoTerminales extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextPaneNoterminales);
 
         jLabel1.setText("No terminales:");
-
+        setBounds(700, 150, 435, 345);
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
