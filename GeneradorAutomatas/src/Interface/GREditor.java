@@ -274,7 +274,7 @@ public class GREditor extends javax.swing.JFrame {
         PrintWriter wr;
 
         try {
-            crearArchivo = new File("Gramatica Guardadas.txt");
+            crearArchivo = new File("Gramatica Guardadas2.txt");
             escribirDatos = new FileWriter(crearArchivo);
             bw = new BufferedWriter(escribirDatos);
             wr = new PrintWriter(crearArchivo);
@@ -292,7 +292,7 @@ public class GREditor extends javax.swing.JFrame {
 
     private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
         reiniciar();
-        String direccion = "Gramatica Guardadas.txt";
+        String direccion = "Gramatica Guardadas2.txt";
         File archivo = new File(direccion);
         //System.out.println(archivo.getAbsolutePath());
 
@@ -352,7 +352,7 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnoTerminalActionPerformed
 
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-        String noterminalAux = txtnoTerminal.getText().trim();
+        String noterminalAux = txtnoTerminal.getText().trim().toUpperCase();
         String cadena = txtTerminales.getText().trim();
         if (verificarRegla(noterminalAux, cadena))  anadir(noterminalAux, cadena);
         

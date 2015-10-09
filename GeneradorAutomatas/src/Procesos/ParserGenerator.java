@@ -23,6 +23,7 @@ public class ParserGenerator {
     List<String> documento;
     List<String> noTerminales;
     List<String> Terminales;
+    String Lambda="";
     //public String key;
     private char epsilon = 'E';
     
@@ -61,10 +62,10 @@ public class ParserGenerator {
                     documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> "+AnalizadorLadoDerecho(terminal)+"\n");
                 }            
                 i++;
-            System.out.println(terminal);
+            //System.out.println(terminal);
             }
         }
-        System.out.println("lista "+listaT);
+        //System.out.println("lista "+listaT);
         return documento;
     }
     
@@ -79,13 +80,28 @@ public class ParserGenerator {
     }
     
     public String calculoLambda(String terminal){
-        String resp="";
-        int i=1;
-        
-        Abecedario aplicacion = new Abecedario(); 
-        resp=aplicacion.imprimirUno(i);
-        
-        return resp;
+        boolean res=false;
+        Lambda="";
+        terminal = terminal.trim();
+        terminal = terminal.replace(" ","");
+        String aux = terminal;
+        //System.out.println("cadena "+aux);
+        if(Terminales.contains("E")){
+            Lambda="";
+        }else{
+            for(int a = 0; a < aux.length(); a++){
+                char caracter=terminal.charAt(a);
+                //System.out.println("caracter "+caracter);
+                int i=a+1;
+                if(Character.isUpperCase(caracter)){
+                    //System.out.println("posicion "+i);
+                    Abecedario aplicacion = new Abecedario();
+                    Lambda += aplicacion.imprimirUno(i);
+                }
+            }
+        }
+        //System.out.println("lamba "+Lambda);
+        return Lambda;
     }
     
     public String funcion(String terminal){
@@ -142,7 +158,7 @@ public class ParserGenerator {
         String resp = "";
         for(int i=0; i<terminal.length(); i++){
             char act= terminal.charAt(i);
-            System.out.println("este es mi elemento "+act);
+            //System.out.println("este es mi elemento "+act);
             //if(terminal){}
             
         

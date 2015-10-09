@@ -234,7 +234,7 @@ public class GLCEditor extends javax.swing.JFrame {
 
     //Boton añadir
     private void btnAniadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAniadirActionPerformed
-        String terminalAux = txtTerminal.getText().toString();
+        String terminalAux = txtTerminal.getText().toString().trim().toUpperCase();
         String cadena = txtCadena.getText();
         anadir(terminalAux,cadena);
     }//GEN-LAST:event_btnAniadirActionPerformed
@@ -279,7 +279,7 @@ public class GLCEditor extends javax.swing.JFrame {
         PrintWriter wr;
         
         try {
-            crearArchivo=new File("Gramatica Guardadas.txt");
+            crearArchivo=new File("Gramatica Guardadas1.txt");
             escribirDatos= new FileWriter(crearArchivo);
             bw= new BufferedWriter(escribirDatos);
             wr= new PrintWriter(crearArchivo);
@@ -385,7 +385,7 @@ public class GLCEditor extends javax.swing.JFrame {
 
     private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
         reiniciar();
-        String direccion = "Gramatica Guardadas.txt";
+        String direccion = "Gramatica Guardadas1.txt";
         File archivo = new File(direccion);
         //System.out.println(archivo.getAbsolutePath());
         
