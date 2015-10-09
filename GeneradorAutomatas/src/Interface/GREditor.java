@@ -87,7 +87,7 @@ public class GREditor extends javax.swing.JFrame {
             }
         });
 
-        buttonER.setText("AEFND");
+        buttonER.setText("ER");
         buttonER.setActionCommand("ER");
         buttonER.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,18 +205,15 @@ public class GREditor extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(bttNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonAEFD)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonAEFND)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonER))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel2)))
-                        .addGap(113, 113, 113)))
+                        .addComponent(buttonAEFD)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAEFND)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonER))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -271,7 +268,14 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAEFNDActionPerformed
 
     private void buttonERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonERActionPerformed
-        // TODO add your handling code here:
+        ArrayList<String> term = terminales;
+        ArrayList<String> aux1 = (ArrayList<String>) term.clone();
+        String ac=" ";
+        for(int a=0;a<2;a++)
+        {
+            aux1 = genEr(aux1);
+            ac+=aux1.toString();
+        }JOptionPane.showMessageDialog(null, ac);
     }//GEN-LAST:event_buttonERActionPerformed
 
     private void btnGrabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarActionPerformed
@@ -654,5 +658,37 @@ public class GREditor extends javax.swing.JFrame {
             res = Character.isLowerCase(chars[i]);
         }
         return res;
+    }
+    
+    private ArrayList<String> genEr(ArrayList<String> term) {
+        int nn = 5;
+        ArrayList<String> aux = new ArrayList<String>();
+        /*for (String term1 : term) {
+            if (nn > 0) {
+                aux.add(term1);
+                nn--;
+            } else {
+                nn = 10;
+                break;
+            }
+        }*/
+        for (String aux1 : term) {
+            if (nn > 0) {
+                if (aux1 != "E") {
+                    for (String aux2 : term) {
+                        if (nn > 0) {
+                            nn--;
+                            aux.add(aux1 + aux2);
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }else
+            {
+                break;
+            }
+        }
+        return aux;
     }
 }
