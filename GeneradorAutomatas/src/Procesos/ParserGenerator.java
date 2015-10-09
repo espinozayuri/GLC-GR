@@ -56,6 +56,26 @@ public class ParserGenerator {
             int i =1;
             for(String terminal : e.getValue()){
                 terminales(terminal);
+                if(terminal.contains("E")){
+                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
+                }else{   if(terminal.length() <=1){
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> "+AnalizadorLadoDerecho(terminal)+"\n");
+                }else{
+                    String resM="";
+                    for(int j=0; j<=(terminal.length()-1);j++){
+                    char posC=terminal.charAt(j);
+                    String pos=posC+"";
+                    resM=resM.concat(AnalizadorLadoDerecho(pos));
+                    resM=resM+" <*> ";
+                    }
+                   
+                    System.out.println("resp "+resM);
+                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> "+resM+"\n");
+                } }           
+                i++;
+            }
+            /*for(String terminal : e.getValue()){
+                terminales(terminal);
                 if(Terminales.contains("E")){
                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
                 }else{   
@@ -63,7 +83,7 @@ public class ParserGenerator {
                 }            
                 i++;
             //System.out.println(terminal);
-            }
+            }*/
         }
         //System.out.println("lista "+listaT);
         return documento;
@@ -154,34 +174,36 @@ public class ParserGenerator {
         return res;
     }
     
-    private String AnalizadorLadoDerecho(String terminal){
+   private String AnalizadorLadoDerecho(String terminal){
         String resp = "";
+        
         for(int i=0; i<terminal.length(); i++){
             char act= terminal.charAt(i);
-            //System.out.println("este es mi elemento "+act);
-            //if(terminal){}
-            
-        
-
-  
-        
-/*
-        String letra = e.getKey()+String.valueOf(i);
-        if(Terminales.contains(letra+"*")){
-            token '"+Terminales+"'<*> many P"+e.getKey()+"\n");
-        }else {
-            if(Terminales.contains("T+")){
-                many1 P"+e.getKey()+String.valueOf(i)+"\n");
-            }else{
-                if(Terminales.contains("A?")){
-                    token '"+Terminales+"'<*> option PA"+"\n");
-                }else{ 
-                    if(Terminales.size() >1){
-                        token '"+Terminales+"'"+"\n");}
-                    else
-                        symbol '"+Terminales+"'"+"\n");}
-*/
-                }
+            String actt = act + "";
+            char act2= terminal.charAt(i);
+            String actt2 = act + "";
+            boolean comp = esGramaticaMinuscula(actt);
+            //char act3= terminal.charAt(i-1);
+            //String actt3 = act + "";
+            if(actt2.equals("+")){
+                resp="many1 P"+actt;}
+                else{
+                    if(actt2.equals("*")){
+                        resp="many P"+actt;
+                    }
+                    else{
+                         if(actt2.equals("?")){
+                             resp="option P"+actt;
+                         }else{
+                    if(!actt.equals(" ")){
+                    if(comp){  
+                    resp="symbol '"+act+"'";
+                } else{resp="P"+actt;}
+                    
+                }}}
+            }
+        }
+                
         return resp;
     }
 }
