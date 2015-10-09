@@ -24,6 +24,7 @@ public class ParserGenerator {
     List<String> noTerminales;
     List<String> Terminales;
     String Lambda="";
+    //String respuesta="";
     //public String key;
     private char epsilon = 'E';
     
@@ -69,21 +70,11 @@ public class ParserGenerator {
                     resM=resM+" <*> ";
                     }
                    
-                    System.out.println("resp "+resM);
+                    //System.out.println("resp "+resM);
                     documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> "+resM+"\n");
                 } }           
                 i++;
             }
-            /*for(String terminal : e.getValue()){
-                terminales(terminal);
-                if(Terminales.contains("E")){
-                   documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> succeed "+e.getKey()+String.valueOf(i)+"\n");
-                }else{   
-                    documento.add(cabeza(i,e.getKey())+funcion(terminal)+"->"+e.getKey()+String.valueOf(i)+" "+calculoLambda(terminal)+")<$> "+AnalizadorLadoDerecho(terminal)+"\n");
-                }            
-                i++;
-            //System.out.println(terminal);
-            }*/
         }
         //System.out.println("lista "+listaT);
         return documento;
@@ -175,35 +166,31 @@ public class ParserGenerator {
     }
     
    private String AnalizadorLadoDerecho(String terminal){
-        String resp = "";
+       String respuesta="";
         
         for(int i=0; i<terminal.length(); i++){
             char act= terminal.charAt(i);
-            String actt = act + "";
-            char act2= terminal.charAt(i);
-            String actt2 = act + "";
+            //String actt = act + "";
+            String actt = Character.toString(act);
             boolean comp = esGramaticaMinuscula(actt);
-            //char act3= terminal.charAt(i-1);
-            //String actt3 = act + "";
-            if(actt2.equals("+")){
-                resp="many1 P"+actt;}
+            if(actt.equals("+")){
+                respuesta="many1 P"+actt;}
                 else{
-                    if(actt2.equals("*")){
-                        resp="many P"+actt;
+                    if(actt.equals("*")){
+                        respuesta="many P"+actt;
                     }
                     else{
-                         if(actt2.equals("?")){
-                             resp="option P"+actt;
-                         }else{
-                    if(!actt.equals(" ")){
-                    if(comp){  
-                    resp="symbol '"+act+"'";
-                } else{resp="P"+actt;}
-                    
-                }}}
+                        if(actt.equals("?")){
+                             respuesta="option P"+actt;
+                        }else{
+                            if(!actt.equals(" ")){
+                                if(comp){  
+                                    respuesta="symbol '"+act+"'";
+                                } else{respuesta="P"+actt;}                    
+                }   }  }
             }
         }
                 
-        return resp;
+        return respuesta;
     }
 }

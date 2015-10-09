@@ -268,6 +268,9 @@ public class GREditor extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAEFNDActionPerformed
 
     private void buttonERActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonERActionPerformed
+        obtenerTerminales();
+        ventanaTerminales ven1 = new ventanaTerminales(terminales);
+        //ven1.setVisible(true);
         ArrayList<String> term = terminales;
         ArrayList<String> aux1 = (ArrayList<String>) term.clone();
         String ac=" ";
