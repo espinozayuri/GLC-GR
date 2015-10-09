@@ -63,7 +63,6 @@ public class Grafo {
     }
         
     public void DibujarAristas(Graphics g){
-        Posicion posi;
         int x,y;
         int radio = 25;
         for(Vertice vertice : vertices){

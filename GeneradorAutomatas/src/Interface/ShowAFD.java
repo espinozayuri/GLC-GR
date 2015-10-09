@@ -115,10 +115,10 @@ public class ShowAFD extends JPanel {
 	frame.setSize(400, 400);
 	frame.setVisible(true);
 	//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        crearAtomata(grafica.getGraphics());
+        /*crearAtomata(grafica.getGraphics());
         crearAristas();
         grafo.DibujarAristas(grafica.getGraphics());
-        Thread.sleep(10);
+        Thread.sleep(10);*/
         grafica.repaint();
         
         /*while (true) {

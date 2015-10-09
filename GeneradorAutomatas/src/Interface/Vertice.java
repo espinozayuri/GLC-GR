@@ -98,14 +98,5 @@ public class Vertice{
                 posicion.radio*2, posicion.radio*2);
         g.drawString(nombre, posicion.posx, posicion.posy);
     }
-
-    public void drawArista(Graphics g, Posicion pos){
-        int centro = posicion.radio;
-        g.drawLine(posicion.posx+centro, posicion.posy+centro, 
-                pos.posx+centro, pos.posy+centro);
-        //Line2D line1 = new Line2D.Float(100, 100, 200, 200);
-        //Line2D line2 = new Line2D.Float(150, 150, 150, 200);
-        //boolean result = line2.intersectsLine(line1);
-    }
 }
 
